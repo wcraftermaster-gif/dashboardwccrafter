@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block title %}Inicio{% endblock %}
+{% block meta_description %}Portafolio, servicios y blog.{% endblock %}
+
+{% block content %}
+    <section>
+        <h1>Bienvenido a mi sitio</h1>
+        <p>Aquí va tu presentación / hero section.</p>
+    </section>
+
+    <section>
+        <h2>Servicios</h2>
+        <p>Placeholder — aquí conectaremos la app de servicios/portafolio más adelante.</p>
+    </section>
+
+    <section>
+        <h2>Últimas publicaciones</h2>
+        {% for post in latest_posts %}
+            <article>
+                <h3><a href="{% url 'blog:post_detail' post.slug %}">{{ post.title }}</a></h3>
+                <p>{{ post.excerpt }}</p>
+            </article>
+        {% empty %}
+            <p>Todavía no hay publicaciones.</p>
+        {% endfor %}
+        <a href="{% url 'blog:post_list' %}">Ver todo el blog →</a>
+    </section>
+{% endblock %}
