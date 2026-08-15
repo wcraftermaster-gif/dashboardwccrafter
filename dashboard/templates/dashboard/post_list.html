@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block title %}Mis posts{% endblock %}
+{% block content %}
+    <h1>Posts</h1>
+    <a href="{% url 'dashboard:post_create' %}">+ Nuevo post</a>
+    <table>
+        <thead>
+            <tr><th>Título</th><th>Autor</th><th>Estado</th><th>Acciones</th></tr>
+        </thead>
+        <tbody>
+            {% for post in posts %}
+            <tr>
+                <td>{{ post.title }}</td>
+                <td>{{ post.author }}</td>
+                <td>{{ post.get_status_display }}</td>
+                <td>
+                    <a href="{% url 'dashboard:post_edit' post.pk %}">Editar</a>
+                    <a href="{% url 'dashboard:post_delete' post.pk %}">Eliminar</a>
+                </td>
+            </tr>
+            {% empty %}
+            <tr><td colspan="4">No hay posts todavía.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

@@ -6,3 +6,5 @@ db.sqlite3
 .idea/
 staticfiles/
 media/
+static/css/main.css
+tailwindcss.exe

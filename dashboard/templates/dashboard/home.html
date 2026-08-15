@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block title %}Dashboard{% endblock %}
+{% block content %}
+    <h1 class="text-3xl font-bold text-blue-600">Dashboard</h1>
+    <p>Bienvenido, {{ request.user.username }}</p>
+    <ul>
+        <li>Total de posts: {{ total_posts }}</li>
+        <li>Publicados: {{ published_count }}</li>
+        <li>Borradores: {{ draft_count }}</li>
+    </ul>
+    <a href="{% url 'dashboard:post_list' %}">Gestionar posts</a>
+{% endblock %}
