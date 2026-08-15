@@ -29,6 +29,7 @@ INSTALLED_APPS = [
 
     'allauth',
     'allauth.account',
+    'allauth.mfa',
     'axes',
 
     'accounts',
@@ -59,6 +60,7 @@ AUTHENTICATION_BACKENDS = [
 
 
 ACCOUNT_LOGIN_METHODS = {'email'}
+ACCOUNT_SIGNUP_ENABLED = False
 ACCOUNT_SIGNUP_FIELDS = ['email*', 'username*', 'password1*', 'password2*']
 ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
 ACCOUNT_UNIQUE_EMAIL = True
@@ -74,6 +76,14 @@ LOGOUT_REDIRECT_URL = 'core:home'
 AXES_FAILURE_LIMIT = 5
 AXES_COOLOFF_TIME = 1  # horas de bloqueo tras exceder el limite
 AXES_LOCKOUT_PARAMETERS = ['username', 'ip_address']
+
+SESSION_COOKIE_AGE = 60 * 60 * 4  # 4 horas
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+SESSION_COOKIE_HTTPONLY = True
+CSRF_COOKIE_HTTPONLY = True
+
+MFA_SUPPORTED_TYPES = ['totp', 'recovery_codes']
+MFA_PASSKEY_LOGIN_ENABLED = False
 
 
 ROOT_URLCONF = 'config.urls'
