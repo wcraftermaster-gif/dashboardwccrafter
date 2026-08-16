@@ -1,26 +1,61 @@
-{% extends "base.html" %}
-{% block title %}Mis posts{% endblock %}
+{% extends "dashboard/base_dashboard.html" %}
+{% block title %}Posts{% endblock %}
+{% block page_title %}Posts{% endblock %}
+
 {% block content %}
-    <h1>Posts</h1>
-    <a href="{% url 'dashboard:post_create' %}">+ Nuevo post</a>
-    <table>
-        <thead>
-            <tr><th>Título</th><th>Autor</th><th>Estado</th><th>Acciones</th></tr>
+<div class="flex justify-between items-center mb-6">
+    <p class="text-gray-500 text-sm">{{ posts.paginator.count }} publicaciones en total</p>
+    <a href="{% url 'dashboard:post_create' %}"
+       class="bg-brand-500 hover:bg-brand-600 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors">
+        + Nuevo post
+    </a>
+</div>
+
+<div class="bg-surface-white rounded-lg shadow-sm overflow-hidden">
+    <table class="w-full text-sm">
+        <thead class="bg-gray-50 border-b border-gray-200">
+            <tr class="text-left text-gray-500">
+                <th class="px-6 py-3 font-medium">Título</th>
+                <th class="px-6 py-3 font-medium">Autor</th>
+                <th class="px-6 py-3 font-medium">Estado</th>
+                <th class="px-6 py-3 font-medium text-right">Acciones</th>
+            </tr>
         </thead>
-        <tbody>
+        <tbody class="divide-y divide-gray-100">
             {% for post in posts %}
-            <tr>
-                <td>{{ post.title }}</td>
-                <td>{{ post.author }}</td>
-                <td>{{ post.get_status_display }}</td>
-                <td>
-                    <a href="{% url 'dashboard:post_edit' post.pk %}">Editar</a>
-                    <a href="{% url 'dashboard:post_delete' post.pk %}">Eliminar</a>
+            <tr class="hover:bg-gray-50">
+                <td class="px-6 py-4 text-dark font-medium">{{ post.title }}</td>
+                <td class="px-6 py-4 text-gray-500">{{ post.author }}</td>
+                <td class="px-6 py-4">
+                    <span class="px-2.5 py-1 rounded-full text-xs font-medium
+                        {% if post.status == 'published' %} bg-green-100 text-green-700
+                        {% elif post.status == 'draft' %} bg-gray-100 text-gray-600
+                        {% elif post.status == 'scheduled' %} bg-yellow-100 text-yellow-700
+                        {% else %} bg-red-100 text-red-700 {% endif %}">
+                        {{ post.get_status_display }}
+                    </span>
+                </td>
+                <td class="px-6 py-4 text-right space-x-3">
+                    <a href="{% url 'dashboard:post_edit' post.pk %}" class="text-brand-600 hover:text-brand-700 font-medium">Editar</a>
+                    <a href="{% url 'dashboard:post_delete' post.pk %}" class="text-red-500 hover:text-red-600 font-medium">Eliminar</a>
                 </td>
             </tr>
             {% empty %}
-            <tr><td colspan="4">No hay posts todavía.</td></tr>
+            <tr><td colspan="4" class="px-6 py-8 text-center text-gray-400">No hay posts todavía.</td></tr>
             {% endfor %}
         </tbody>
     </table>
+</div>
+
+{% if is_paginated %}
+<div class="flex justify-center gap-2 mt-6">
+    {% if page_obj.has_previous %}
+        <a href="?page={{ page_obj.previous_page_number }}" class="px-3 py-1.5 rounded-lg bg-surface-white text-sm text-gray-600 hover:bg-gray-100">Anterior</a>
+    {% endif %}
+    <span class="px-3 py-1.5 text-sm text-gray-500">Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}</span>
+    {% if page_obj.has_next %}
+        <a href="?page={{ page_obj.next_page_number }}" class="px-3 py-1.5 rounded-lg bg-surface-white text-sm text-gray-600 hover:bg-gray-100">Siguiente</a>
+    {% endif %}
+</div>
+{% endif %}
 {% endblock %}

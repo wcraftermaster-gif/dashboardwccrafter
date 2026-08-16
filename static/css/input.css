@@ -1,12 +1,25 @@
 @import "tailwindcss";
 
 @theme {
-  --color-brand-50: #0D0D26;
-  --color-brand-100: #dbeafe;
-  --color-brand-500: #3b82f6;
-  --color-brand-600: #2563eb;
-  --color-brand-700: #1d4ed8;
-  --color-brand-900: #1e3a8a;
+  /* Fondo oscuro (sidebar, headers, secciones oscuras) */
+  --color-dark: #0D0D26;
+  --color-dark-800: #15152F;
+  --color-dark-700: #1D1D3A;
+
+  /* Color de marca (acentos, botones, links activos) */
+  --color-brand-50:  #FFE6F3;
+  --color-brand-100: #FFCCE7;
+  --color-brand-300: #FF7FBB;
+  --color-brand-500: #FF2D8E;
+  --color-brand-600: #E6157A;
+  --color-brand-700: #C90F68;
+
+  /* Fondo claro (áreas de contenido) */
+  --color-surface: #F4F4F7;
+  --color-surface-white: #FFFFFF;
+
+  /* Sombra de marca */
+  --shadow-brand: 4px 0 15px rgba(0, 0, 0, 0.5);
 
   --font-sans: "Inter", system-ui, sans-serif;
 }

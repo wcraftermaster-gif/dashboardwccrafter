@@ -1,12 +1,25 @@
-{% extends "base.html" %}
-{% block title %}Dashboard{% endblock %}
+{% extends "dashboard/base_dashboard.html" %}
+{% block title %}Inicio{% endblock %}
+{% block page_title %}Dashboard{% endblock %}
+
 {% block content %}
-    <h1 class="text-3xl font-bold text-blue-600">Dashboard</h1>
-    <p>Bienvenido, {{ request.user.username }}</p>
-    <ul>
-        <li>Total de posts: {{ total_posts }}</li>
-        <li>Publicados: {{ published_count }}</li>
-        <li>Borradores: {{ draft_count }}</li>
-    </ul>
-    <a href="{% url 'dashboard:post_list' %}">Gestionar posts</a>
+<div class="grid grid-cols-3 gap-4">
+    <div class="bg-surface-white rounded-lg p-6 shadow-sm border-l-4 border-brand-500">
+        <p class="text-sm text-gray-500">Total de posts</p>
+        <p class="text-2xl font-bold text-dark">{{ total_posts }}</p>
+    </div>
+    <div class="bg-surface-white rounded-lg p-6 shadow-sm border-l-4 border-brand-500">
+        <p class="text-sm text-gray-500">Publicados</p>
+        <p class="text-2xl font-bold text-dark">{{ published_count }}</p>
+    </div>
+    <div class="bg-surface-white rounded-lg p-6 shadow-sm border-l-4 border-brand-500">
+        <p class="text-sm text-gray-500">Borradores</p>
+        <p class="text-2xl font-bold text-dark">{{ draft_count }}</p>
+    </div>
+</div>
+
+<a href="{% url 'dashboard:post_list' %}"
+   class="inline-block mt-6 bg-brand-500 hover:bg-brand-600 text-white px-4 py-2 rounded-lg transition-colors">
+    Gestionar posts
+</a>
 {% endblock %}

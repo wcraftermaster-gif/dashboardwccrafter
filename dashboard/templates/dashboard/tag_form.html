@@ -1,0 +1,19 @@
+{% extends "dashboard/base_dashboard.html" %}
+{% block title %}Editar etiqueta{% endblock %}
+{% block page_title %}Editar etiqueta{% endblock %}
+{% block content %}
+<form method="post" class="bg-surface-white rounded-lg shadow-sm p-8 max-w-md space-y-4">
+    {% csrf_token %}
+    {% for field in form %}
+        <div>
+            <label class="block text-sm font-medium text-dark mb-1.5">{{ field.label }}</label>
+            {{ field }}
+            {% if field.errors %}<p class="text-xs text-red-500 mt-1">{{ field.errors|striptags }}</p>{% endif %}
+        </div>
+    {% endfor %}
+    <div class="flex gap-3 pt-2">
+        <button type="submit" class="bg-brand-500 hover:bg-brand-600 text-white px-5 py-2.5 rounded-lg text-sm font-medium">Guardar</button>
+        <a href="{% url 'dashboard:tag_list' %}" class="px-5 py-2.5 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-100">Cancelar</a>
+    </div>
+</form>
+{% endblock %}
