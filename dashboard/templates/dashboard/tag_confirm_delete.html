@@ -3,7 +3,7 @@
 {% block page_title %}Eliminar etiqueta{% endblock %}
 {% block content %}
 <div class="bg-surface-white rounded-lg shadow-sm p-8 max-w-lg">
-    <p class="text-dark">¿Eliminar <strong>"{{ object.name }}"</strong>? Se quitará de todos los posts que la usen.</p>
+    <p class="text-dark">¿Eliminar <strong>"{{ object.name }}"</strong>? Se quitará de todos los posts que la usen en tu blog.</p>
     <form method="post" class="flex gap-3 mt-6">
         {% csrf_token %}
         <button type="submit" class="bg-red-500 hover:bg-red-600 text-white px-5 py-2.5 rounded-lg text-sm font-medium">Sí, eliminar</button>
