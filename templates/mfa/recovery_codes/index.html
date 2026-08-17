@@ -1,0 +1,34 @@
+{% extends "dashboard/base_dashboard.html" %}
+{% block title %}Códigos de recuperación{% endblock %}
+{% block page_title %}Códigos de recuperación{% endblock %}
+
+{% block content %}
+<div class="bg-surface-white rounded-lg shadow-sm p-8 max-w-lg">
+    <p class="text-sm text-gray-500 mb-6">
+        {{ unused_codes|length }} de {{ total_count }} códigos disponibles. Guárdalos en un lugar seguro — cada uno solo se puede usar una vez.
+    </p>
+
+    {% if can_view_codes %}
+        <div class="bg-gray-50 rounded-lg p-4 font-mono text-sm text-dark space-y-1 mb-6">
+            {% for code in unused_codes %}
+                <div>{{ code }}</div>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    <div class="flex gap-3">
+        {% if can_download_codes %}
+            <a href="{% url 'mfa_download_recovery_codes' %}"
+               class="bg-brand-500 hover:bg-brand-600 text-white px-4 py-2.5 rounded-lg text-sm font-medium transition-colors">
+                Descargar
+            </a>
+        {% endif %}
+        {% if can_generate_codes %}
+            <a href="{% url 'mfa_generate_recovery_codes' %}"
+               class="px-4 py-2.5 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-100 transition-colors">
+                Generar nuevos
+            </a>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

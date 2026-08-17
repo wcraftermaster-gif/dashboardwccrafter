@@ -1,0 +1,12 @@
+{% extends "layouts/auth_base.html" %}
+{% block title %}Cerrar sesión{% endblock %}
+
+{% block content %}
+<h1 class="text-xl font-semibold text-dark mb-4">¿Cerrar sesión?</h1>
+<form method="post">
+    {% csrf_token %}
+    <button type="submit" class="w-full bg-brand-500 hover:bg-brand-600 text-white px-4 py-2.5 rounded-lg text-sm font-medium transition-colors">
+        Sí, cerrar sesión
+    </button>
+</form>
+{% endblock %}

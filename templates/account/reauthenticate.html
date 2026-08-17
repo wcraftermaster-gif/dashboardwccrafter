@@ -1,0 +1,22 @@
+{% extends "layouts/auth_base.html" %}
+{% block title %}Confirma tu identidad{% endblock %}
+
+{% block content %}
+<h1 class="text-xl font-semibold text-dark mb-2">Confirma tu identidad</h1>
+<p class="text-sm text-gray-500 mb-6">Ingresa el código de tu aplicación de autenticación para continuar.</p>
+
+<form method="post">
+    {% csrf_token %}
+    {% for field in form %}
+        <div class="mb-4">
+            <label class="block text-sm font-medium text-dark mb-1.5">{{ field.label }}</label>
+            {{ field }}
+            {% if field.errors %}<p class="text-xs text-red-500 mt-1">{{ field.errors|striptags }}</p>{% endif %}
+        </div>
+    {% endfor %}
+    {{ redirect_field }}
+    <button type="submit" class="w-full bg-brand-500 hover:bg-brand-600 text-white px-4 py-2.5 rounded-lg text-sm font-medium transition-colors">
+        Confirmar
+    </button>
+</form>
+{% endblock %}

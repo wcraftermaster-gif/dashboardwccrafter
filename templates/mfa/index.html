@@ -1,0 +1,50 @@
+{% extends "dashboard/base_dashboard.html" %}
+{% block title %}Autenticación en dos pasos{% endblock %}
+{% block page_title %}Autenticación en dos pasos{% endblock %}
+
+{% block content %}
+<div class="space-y-4 max-w-2xl">
+
+    {% if "totp" in MFA_SUPPORTED_TYPES %}
+    <div class="bg-surface-white rounded-lg shadow-sm p-6 flex justify-between items-center">
+        <div>
+            <h2 class="text-sm font-semibold text-dark">Aplicación de autenticación</h2>
+            {% if authenticators.totp %}
+                <p class="text-sm text-green-600 mt-1">Activa</p>
+            {% else %}
+                <p class="text-sm text-gray-500 mt-1">No está activa</p>
+            {% endif %}
+        </div>
+        {% if authenticators.totp %}
+            <a href="{% url 'mfa_deactivate_totp' %}" class="text-sm text-red-500 hover:text-red-600 font-medium">Desactivar</a>
+        {% else %}
+            <a href="{% url 'mfa_activate_totp' %}" class="text-sm text-brand-600 hover:text-brand-700 font-medium">Activar</a>
+        {% endif %}
+    </div>
+    {% endif %}
+
+    {% if "recovery_codes" in MFA_SUPPORTED_TYPES %}
+        {% with total_count=authenticators.recovery_codes.generate_codes|length unused_count=authenticators.recovery_codes.get_unused_codes|length %}
+        <div class="bg-surface-white rounded-lg shadow-sm p-6">
+            <h2 class="text-sm font-semibold text-dark mb-1">Códigos de recuperación</h2>
+            {% if authenticators.recovery_codes %}
+                <p class="text-sm text-gray-500">{{ unused_count }} de {{ total_count }} códigos disponibles.</p>
+            {% else %}
+                <p class="text-sm text-gray-500">No has generado códigos de recuperación.</p>
+            {% endif %}
+
+            {% if is_mfa_enabled %}
+            <div class="flex gap-4 mt-4">
+                {% if authenticators.recovery_codes and unused_count > 0 and not MFA_RECOVERY_CODES_SHOW_ONCE %}
+                    <a href="{% url 'mfa_view_recovery_codes' %}" class="text-sm text-brand-600 hover:text-brand-700 font-medium">Ver</a>
+                    <a href="{% url 'mfa_download_recovery_codes' %}" class="text-sm text-brand-600 hover:text-brand-700 font-medium">Descargar</a>
+                {% endif %}
+                <a href="{% url 'mfa_generate_recovery_codes' %}" class="text-sm text-brand-600 hover:text-brand-700 font-medium">Generar nuevos</a>
+            </div>
+            {% endif %}
+        </div>
+        {% endwith %}
+    {% endif %}
+
+</div>
+{% endblock %}
