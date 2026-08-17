@@ -32,6 +32,7 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.mfa',
     'axes',
+    'storages',
 
     'accounts',
     'blog',
@@ -146,6 +147,7 @@ MEDIA_URL = 'media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 STATICFILES_DIRS = [BASE_DIR / 'static']
 STATIC_ROOT = BASE_DIR / 'staticfiles'
+
 STORAGES = {
     "default": {
         "BACKEND": "django.core.files.storage.FileSystemStorage",
@@ -154,6 +156,20 @@ STORAGES = {
         "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
     },
 }
+if not DEBUG:
+    STORAGES["default"] = {
+        "BACKEND": "storages.backends.s3.S3Storage",
+    }
+
+    AWS_ACCESS_KEY_ID = env('R2_ACCESS_KEY_ID')
+    AWS_SECRET_ACCESS_KEY = env('R2_SECRET_ACCESS_KEY')
+    AWS_STORAGE_BUCKET_NAME = env('R2_BUCKET_NAME')
+    AWS_S3_ENDPOINT_URL = env('R2_ENDPOINT_URL')
+    AWS_S3_CUSTOM_DOMAIN = env('R2_PUBLIC_DOMAIN')
+    AWS_DEFAULT_ACL = None
+    AWS_S3_FILE_OVERWRITE = False
+    AWS_QUERYSTRING_AUTH = False
+    AWS_S3_ADDRESSING_STYLE = 'virtual'
 
 MAILERS = {
     'default': {
