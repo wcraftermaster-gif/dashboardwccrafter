@@ -184,15 +184,19 @@ else:
     MAILERS = {
         'default': {
             'BACKEND': 'django.core.mail.backends.smtp.EmailBackend',
-            'HOST': 'authsmtp.securemail.pro',
-            'PORT': 465,
-            'USERNAME': env('EMAIL_HOST_USER'),
-            'PASSWORD': env('EMAIL_HOST_PASSWORD'),
-            'USE_SSL': True,
+            'OPTIONS': {
+                'host': 'authsmtp.securemail.pro',
+                'port': 465,
+                'username': env('EMAIL_HOST_USER'),
+                'password': env('EMAIL_HOST_PASSWORD'),
+                'use_ssl': True,
+            },
         },
     }
 
 DEFAULT_FROM_EMAIL = env('DEFAULT_FROM_EMAIL', default='no-reply@wcrafter.com')
+
+
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
