@@ -227,4 +227,7 @@ CKEDITOR_5_CONFIGS = {
         ],
     },
 }
-CKEDITOR_5_FILE_STORAGE = 'django.core.files.storage.default_storage'
+if DEBUG:
+    CKEDITOR_5_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
+else:
+    CKEDITOR_5_FILE_STORAGE = 'storages.backends.s3.S3Storage'
