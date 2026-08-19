@@ -1,3 +1,4 @@
+import bleach
 from django import forms
 from blog.models import Post, Category, Tag
 
@@ -7,6 +8,15 @@ INPUT_CLASSES = (
     'placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-brand-500 '
     'focus:border-brand-500 transition-colors'
 )
+
+ALLOWED_TAGS = [
+    'p', 'br', 'strong', 'em', 'u', 'a', 'ul', 'ol', 'li',
+    'blockquote', 'h2', 'h3', 'h4', 'img', 'figure', 'figcaption',
+]
+ALLOWED_ATTRS = {
+    'a': ['href', 'title', 'target', 'rel'],
+    'img': ['src', 'alt', 'width', 'height'],
+}
 
 
 class PostForm(forms.ModelForm):
@@ -39,7 +49,6 @@ class PostForm(forms.ModelForm):
         widgets = {
             'title': forms.TextInput(attrs={'class': INPUT_CLASSES}),
             'excerpt': forms.Textarea(attrs={'class': INPUT_CLASSES, 'rows': 3}),
-            'content': forms.Textarea(attrs={'class': INPUT_CLASSES, 'rows': 12}),
             'featured_image': forms.ClearableFileInput(attrs={'class': 'text-sm text-gray-600'}),
             'status': forms.Select(attrs={'class': INPUT_CLASSES}),
             'scheduled_at': forms.DateTimeInput(attrs={'class': INPUT_CLASSES, 'type': 'datetime-local'}),
@@ -69,6 +78,13 @@ class PostForm(forms.ModelForm):
     def save(self, commit=True):
         instance = super().save(commit=False)
 
+        instance.content = bleach.clean(
+            instance.content,
+            tags=ALLOWED_TAGS,
+            attributes=ALLOWED_ATTRS,
+            strip=True,
+        )
+
         category_name = self.cleaned_data.get('category_name', '').strip()
         if category_name:
             category, _ = Category.objects.get_or_create(
@@ -92,6 +108,7 @@ class PostForm(forms.ModelForm):
             tag, _ = Tag.objects.get_or_create(name__iexact=name, defaults={'name': name})
             tags.append(tag)
         instance.tags.set(tags)
+
 
 class CategoryForm(forms.ModelForm):
     class Meta:

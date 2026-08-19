@@ -2,7 +2,7 @@ from django.conf import settings
 from django.db import models
 from django.utils import timezone
 from django.utils.text import slugify
-
+from django_ckeditor_5.fields import CKEditor5Field
 
 class Category(models.Model):
     name = models.CharField(max_length=100, unique=True)
@@ -72,7 +72,7 @@ class Post(models.Model):
     )
     tags = models.ManyToManyField(Tag, blank=True, related_name='posts')
     excerpt = models.CharField(max_length=300, blank=True)
-    content = models.TextField()
+    content = CKEditor5Field(config_name='default')
     featured_image = models.ImageField(upload_to='blog/featured/%Y/%m/', blank=True, null=True)
 
     # --- Estado y fechas ---

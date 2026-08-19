@@ -33,6 +33,7 @@ INSTALLED_APPS = [
     'allauth.mfa',
     'axes',
     'storages',
+    'django_ckeditor_5',
 
     'accounts',
     'blog',
@@ -213,3 +214,17 @@ LOGGING = {
         },
     },
 }
+
+
+
+CKEDITOR_5_CONFIGS = {
+    'default': {
+        'toolbar': [
+            'heading', '|',
+            'bold', 'italic', 'link', 'bulletedList', 'numberedList', '|',
+            'blockQuote', 'insertImage', 'mediaEmbed', '|',
+            'undo', 'redo',
+        ],
+    },
+}
+CKEDITOR_5_FILE_STORAGE = 'django.core.files.storage.default_storage'
