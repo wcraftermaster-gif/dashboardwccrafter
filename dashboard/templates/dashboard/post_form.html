@@ -3,6 +3,7 @@
 {% block page_title %}{% if object %}Editar post{% else %}Nuevo post{% endif %}{% endblock %}
 
 {% block content %}
+{{ form.media }}
 <form method="post" enctype="multipart/form-data" class="bg-surface-white rounded-lg shadow-sm p-8 max-w-3xl space-y-5">
     {% csrf_token %}
     {% for field in form %}
