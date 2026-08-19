@@ -1,5 +1,6 @@
 import bleach
 from django import forms
+from django.utils.text import slugify
 from blog.models import Post, Category, Tag
 
 
@@ -10,46 +11,66 @@ INPUT_CLASSES = (
 )
 
 ALLOWED_TAGS = [
-    'p', 'br', 'strong', 'em', 'u', 'a', 'ul', 'ol', 'li',
+    'p', 'br', 'strong', 'em', 'u', 's', 'a', 'ul', 'ol', 'li',
     'blockquote', 'h2', 'h3', 'h4', 'img', 'figure', 'figcaption',
+    'table', 'thead', 'tbody', 'tr', 'th', 'td', 'code', 'pre',
+    'sub', 'sup', 'mark', 'span',
 ]
 ALLOWED_ATTRS = {
     'a': ['href', 'title', 'target', 'rel'],
-    'img': ['src', 'alt', 'width', 'height'],
+    'img': ['src', 'alt', 'width', 'height', 'class', 'style'],
+    'figure': ['class', 'style'],
+    'span': ['style', 'class'],
+    'td': ['style'],
+    'th': ['style'],
 }
 
+
+def generate_unique_slug(instance, base_slug):
+    slug = base_slug
+    counter = 2
+    while Post.objects.filter(slug=slug).exclude(pk=instance.pk).exists():
+        slug = f'{base_slug}-{counter}'
+        counter += 1
+    return slug
+
+
+class StyledClearableFileInput(forms.ClearableFileInput):
+    template_name = 'dashboard/widgets/clearable_file_input.html'
 
 class PostForm(forms.ModelForm):
     category_name = forms.CharField(
         label='Categoría',
         required=False,
-        widget=forms.TextInput(attrs={
-            'class': INPUT_CLASSES,
-            'list': 'category-options',
-            'placeholder': 'Escribe o elige una categoría existente',
-        }),
+        widget=forms.HiddenInput(attrs={'id': 'id_category_name'}),
     )
     tags_input = forms.CharField(
         label='Etiquetas',
         required=False,
-        widget=forms.TextInput(attrs={
-            'class': INPUT_CLASSES,
-            'placeholder': 'django, tutorial, seguridad',
-        }),
-        help_text='Sepáralas con comas. Las que no existan se crean automáticamente.',
+        widget=forms.HiddenInput(attrs={'id': 'id_tags_input'}),
     )
 
     class Meta:
         model = Post
         fields = [
-            'title', 'excerpt', 'content',
+            'title', 'slug', 'excerpt', 'content',
             'featured_image', 'status', 'scheduled_at',
             'meta_title', 'meta_description', 'canonical_url', 'noindex',
         ]
         widgets = {
-            'title': forms.TextInput(attrs={'class': INPUT_CLASSES}),
+            'title': forms.TextInput(attrs={
+                'class': 'w-full text-3xl font-semibold text-dark placeholder-gray-300 '
+                         'border-none focus:outline-none focus:ring-0 p-0',
+                'placeholder': 'Añadir título',
+                'id': 'id_title',
+            }),
+            'slug': forms.TextInput(attrs={
+                'class': 'px-2 py-1 rounded border border-gray-300 text-sm text-dark '
+                         'focus:outline-none focus:ring-2 focus:ring-brand-500',
+                'id': 'id_slug',
+            }),
             'excerpt': forms.Textarea(attrs={'class': INPUT_CLASSES, 'rows': 3}),
-            'featured_image': forms.ClearableFileInput(attrs={'class': 'text-sm text-gray-600'}),
+            'featured_image': StyledClearableFileInput(attrs={'id': 'id_featured_image', 'class': 'hidden'}),
             'status': forms.Select(attrs={'class': INPUT_CLASSES}),
             'scheduled_at': forms.DateTimeInput(attrs={'class': INPUT_CLASSES, 'type': 'datetime-local'}),
             'meta_title': forms.TextInput(attrs={'class': INPUT_CLASSES}),
@@ -60,14 +81,9 @@ class PostForm(forms.ModelForm):
             }),
         }
 
-    field_order = [
-        'title', 'category_name', 'tags_input', 'excerpt', 'content',
-        'featured_image', 'status', 'scheduled_at',
-        'meta_title', 'meta_description', 'canonical_url', 'noindex',
-    ]
-
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        self.fields['slug'].required = False
         if self.instance.pk:
             if self.instance.category:
                 self.fields['category_name'].initial = self.instance.category.name
@@ -77,6 +93,9 @@ class PostForm(forms.ModelForm):
 
     def save(self, commit=True):
         instance = super().save(commit=False)
+
+        base_slug = slugify(instance.slug) if instance.slug else slugify(instance.title)
+        instance.slug = generate_unique_slug(instance, base_slug)
 
         instance.content = bleach.clean(
             instance.content,
@@ -108,6 +127,7 @@ class PostForm(forms.ModelForm):
             tag, _ = Tag.objects.get_or_create(name__iexact=name, defaults={'name': name})
             tags.append(tag)
         instance.tags.set(tags)
+
 
 
 class CategoryForm(forms.ModelForm):

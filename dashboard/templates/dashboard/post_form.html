@@ -1,46 +1,228 @@
 {% extends "dashboard/base_dashboard.html" %}
+{% load static %}
 {% block title %}{% if object %}Editar{% else %}Nuevo{% endif %} post{% endblock %}
 {% block page_title %}{% if object %}Editar post{% else %}Nuevo post{% endif %}{% endblock %}
 
 {% block content %}
 {{ form.media }}
-<form method="post" enctype="multipart/form-data" class="bg-surface-white rounded-lg shadow-sm p-8 max-w-3xl space-y-5">
+
+<form method="post" enctype="multipart/form-data">
     {% csrf_token %}
-    {% for field in form %}
-        {% if field.name == 'noindex' %}
-            <div class="flex items-center gap-2">
-                {{ field }}
-                <label for="{{ field.id_for_label }}" class="text-sm text-dark">{{ field.label }}</label>
-            </div>
-        {% else %}
-            <div>
-                <label for="{{ field.id_for_label }}" class="block text-sm font-medium text-dark mb-1.5">
-                    {{ field.label }}
-                </label>
-                {{ field }}
-                {% if field.help_text %}
-                    <p class="text-xs text-gray-400 mt-1">{{ field.help_text }}</p>
-                {% endif %}
-                {% if field.errors %}
-                    <p class="text-xs text-red-500 mt-1">{{ field.errors|striptags }}</p>
-                {% endif %}
-            </div>
-        {% endif %}
-    {% endfor %}
 
-    <datalist id="category-options">
-        {% for cat in categories %}
-            <option value="{{ cat.name }}">
-        {% endfor %}
-    </datalist>
+    <div class="grid grid-cols-3 gap-6 items-start">
 
-    <div class="flex gap-3 pt-4 border-t border-gray-100">
-        <button type="submit" class="bg-brand-500 hover:bg-brand-600 text-white px-5 py-2.5 rounded-lg text-sm font-medium transition-colors">
-            Guardar
+        <!-- Columna principal -->
+        <div class="col-span-2 space-y-6">
+
+           <!-- Título -->
+<div class="bg-surface-white rounded-lg shadow-sm p-6">
+    {{ form.title }}
+    {% if form.title.errors %}
+        <p class="text-xs text-red-500 mt-1">{{ form.title.errors|striptags }}</p>
+    {% endif %}
+</div>
+
+<!-- Enlace permanente -->
+<div class="px-1">
+    <div id="permalink-display" class="flex items-center gap-1 text-sm text-gray-500">
+        <span>Enlace permanente:</span>
+        <span class="text-gray-600">https://{{ request.get_host }}/blog/</span>
+        <span id="slug-preview" class="text-brand-600 font-medium">{{ form.instance.slug|default:"se-generara-del-titulo" }}</span>
+        <span class="text-gray-600">/</span>
+        <button type="button" id="edit-permalink-btn" class="text-brand-600 hover:text-brand-700 font-medium ml-1">
+            Editar
         </button>
-        <a href="{% url 'dashboard:post_list' %}" class="px-5 py-2.5 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-100 transition-colors">
+    </div>
+
+    <div id="permalink-edit" class="hidden items-center gap-2">
+        <span class="text-sm text-gray-500">https://{{ request.get_host }}/blog/</span>
+        {{ form.slug }}
+        <span class="text-sm text-gray-500">/</span>
+        <button type="button" id="save-permalink-btn" class="bg-brand-500 hover:bg-brand-600 text-white px-3 py-1 rounded text-sm">
+            Aceptar
+        </button>
+        <button type="button" id="cancel-permalink-btn" class="text-gray-600 hover:bg-gray-100 px-3 py-1 rounded text-sm">
             Cancelar
-        </a>
+        </button>
+    </div>
+    {% if form.slug.errors %}
+        <p class="text-xs text-red-500 mt-1">{{ form.slug.errors|striptags }}</p>
+    {% endif %}
+</div>
+
+            <!-- Contenido -->
+            <div class="bg-surface-white rounded-lg shadow-sm p-6">
+                <label class="block text-sm font-medium text-dark mb-2">Contenido</label>
+                {{ form.content }}
+                {% if form.content.errors %}
+                    <p class="text-xs text-red-500 mt-1">{{ form.content.errors|striptags }}</p>
+                {% endif %}
+            </div>
+
+            <!-- Panel SEO estilo Yoast (antes del extracto) -->
+            <div class="bg-surface-white rounded-lg shadow-sm overflow-hidden">
+                <button type="button" id="seo-panel-toggle"
+                        class="w-full flex justify-between items-center px-6 py-4 text-left">
+                    <span class="text-sm font-semibold text-dark">SEO</span>
+                    <svg id="seo-panel-chevron" class="w-4 h-4 text-gray-400 transition-transform" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M6 9l6 6 6-6"/>
+                    </svg>
+                </button>
+
+                <div id="seo-panel-body" class="hidden px-6 pb-6 space-y-4 border-t border-gray-100 pt-4">
+                    <div>
+                        <label for="{{ form.meta_title.id_for_label }}" class="block text-sm font-medium text-dark mb-1.5">
+                            Meta título
+                        </label>
+                        {{ form.meta_title }}
+                        <p class="text-xs text-gray-400 mt-1">Si se deja vacío, se usa el título del post. Recomendado: 50-60 caracteres.</p>
+                        {% if form.meta_title.errors %}<p class="text-xs text-red-500 mt-1">{{ form.meta_title.errors|striptags }}</p>{% endif %}
+                    </div>
+
+                    <div>
+                        <label for="{{ form.meta_description.id_for_label }}" class="block text-sm font-medium text-dark mb-1.5">
+                            Meta descripción
+                        </label>
+                        {{ form.meta_description }}
+                        <p class="text-xs text-gray-400 mt-1">Recomendado: 120-160 caracteres.</p>
+                        {% if form.meta_description.errors %}<p class="text-xs text-red-500 mt-1">{{ form.meta_description.errors|striptags }}</p>{% endif %}
+                    </div>
+
+                    <div>
+                        <label for="{{ form.canonical_url.id_for_label }}" class="block text-sm font-medium text-dark mb-1.5">
+                            URL canónica
+                        </label>
+                        {{ form.canonical_url }}
+                        <p class="text-xs text-gray-400 mt-1">Solo si este contenido también existe en otra URL.</p>
+                        {% if form.canonical_url.errors %}<p class="text-xs text-red-500 mt-1">{{ form.canonical_url.errors|striptags }}</p>{% endif %}
+                    </div>
+
+                    <div class="flex items-center gap-2">
+                        {{ form.noindex }}
+                        <label for="{{ form.noindex.id_for_label }}" class="text-sm text-dark">
+                            No indexar este post en buscadores
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Extracto -->
+            <div class="bg-surface-white rounded-lg shadow-sm p-6">
+                <label for="{{ form.excerpt.id_for_label }}" class="block text-sm font-medium text-dark mb-1.5">
+                    Extracto
+                </label>
+                {{ form.excerpt }}
+                <p class="text-xs text-gray-400 mt-1">Un resumen corto, usado en listados y como respaldo de la descripción SEO.</p>
+                {% if form.excerpt.errors %}
+                    <p class="text-xs text-red-500 mt-1">{{ form.excerpt.errors|striptags }}</p>
+                {% endif %}
+            </div>
+
+        </div>
+
+        <!-- Sidebar -->
+        <div class="col-span-1 space-y-6">
+
+            <!-- Caja de publicación -->
+            <div class="bg-surface-white rounded-lg shadow-sm p-5 space-y-4">
+                <h3 class="text-sm font-semibold text-dark">Publicación</h3>
+
+                <div>
+                    <label for="{{ form.status.id_for_label }}" class="block text-xs font-medium text-gray-500 mb-1">Estado</label>
+                    {{ form.status }}
+                    {% if form.status.errors %}<p class="text-xs text-red-500 mt-1">{{ form.status.errors|striptags }}</p>{% endif %}
+                </div>
+
+                <div>
+                    <label for="{{ form.scheduled_at.id_for_label }}" class="block text-xs font-medium text-gray-500 mb-1">Programar para</label>
+                    {{ form.scheduled_at }}
+                    {% if form.scheduled_at.errors %}<p class="text-xs text-red-500 mt-1">{{ form.scheduled_at.errors|striptags }}</p>{% endif %}
+                </div>
+
+                <div class="pt-2 border-t border-gray-100 flex gap-2">
+                    <button type="submit" class="flex-1 bg-brand-500 hover:bg-brand-600 text-white px-4 py-2.5 rounded-lg text-sm font-medium transition-colors">
+                        Guardar
+                    </button>
+                    <a href="{% url 'dashboard:post_list' %}" class="px-4 py-2.5 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-100 transition-colors">
+                        Cancelar
+                    </a>
+                </div>
+            </div>
+
+           <!-- Imagen destacada -->
+<div class="bg-surface-white rounded-lg shadow-sm p-5">
+    <h3 class="text-sm font-semibold text-dark mb-3">Imagen destacada</h3>
+
+    <div id="featured-image-preview-wrapper" class="{% if not object.featured_image %}hidden{% endif %} mb-3">
+        <img id="featured-image-preview"
+             src="{% if object.featured_image %}{{ object.featured_image.url }}{% endif %}"
+             alt="" class="w-full rounded-lg border border-gray-200">
+    </div>
+
+    <label for="id_featured_image"
+           id="featured-image-dropzone"
+           class="{% if object.featured_image %}hidden{% endif %} flex flex-col items-center justify-center gap-2 border-2 border-dashed border-gray-300 rounded-lg py-8 cursor-pointer hover:border-brand-400 hover:bg-brand-50/30 transition-colors">
+        <svg class="w-8 h-8 text-gray-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/>
+        </svg>
+        <span class="text-sm text-brand-600 font-medium">Establecer imagen destacada</span>
+    </label>
+
+    {{ form.featured_image }}
+
+    <div id="featured-image-actions" class="{% if not object.featured_image %}hidden{% endif %} flex justify-between mt-2">
+        <label for="id_featured_image" class="text-xs text-brand-600 hover:text-brand-700 font-medium cursor-pointer">
+            Cambiar imagen
+        </label>
+        <button type="button" id="remove-featured-image" class="text-xs text-red-500 hover:text-red-600 font-medium">
+            Quitar imagen destacada
+        </button>
+    </div>
+
+    {% if form.featured_image.errors %}
+        <p class="text-xs text-red-500 mt-1">{{ form.featured_image.errors|striptags }}</p>
+    {% endif %}
+</div>
+
+            <!-- Categoría estilo WordPress -->
+            <div class="bg-surface-white rounded-lg shadow-sm p-5">
+                <h3 class="text-sm font-semibold text-dark mb-3">Categoría</h3>
+                <div id="category-list" class="max-h-40 overflow-y-auto space-y-1.5 mb-3">
+                    {% for cat in categories %}
+                    <label class="flex items-center gap-2 text-sm text-gray-700">
+                        <input type="radio" name="category_radio" value="{{ cat.name }}"
+                               class="h-4 w-4 text-brand-500 border-gray-300 focus:ring-brand-500 category-radio"
+                               {% if object.category.name == cat.name %}checked{% endif %}>
+                        {{ cat.name }}
+                    </label>
+                    {% endfor %}
+                </div>
+                <button type="button" id="add-category-toggle" class="text-sm text-brand-600 hover:text-brand-700 font-medium">
+                    + Añadir nueva categoría
+                </button>
+                <div id="add-category-box" class="hidden mt-2 flex gap-2">
+                    <input type="text" id="new-category-input" placeholder="Nombre de la categoría"
+                           class="flex-1 px-3 py-1.5 rounded-lg border border-gray-300 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500">
+                    <button type="button" id="add-category-confirm" class="bg-brand-500 hover:bg-brand-600 text-white px-3 py-1.5 rounded-lg text-sm">
+                        Añadir
+                    </button>
+                </div>
+                {{ form.category_name }}
+            </div>
+
+            <!-- Etiquetas estilo WordPress (chips) -->
+            <div class="bg-surface-white rounded-lg shadow-sm p-5">
+                <h3 class="text-sm font-semibold text-dark mb-3">Etiquetas</h3>
+                <div id="tags-chip-container" class="flex flex-wrap gap-1.5 mb-2"></div>
+                <input type="text" id="tags-text-input" placeholder="Escribe y presiona Enter"
+                       class="w-full px-3 py-2 rounded-lg border border-gray-300 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500">
+                <p class="text-xs text-gray-400 mt-1">Presiona Enter o coma para añadir cada etiqueta.</p>
+                {{ form.tags_input }}
+            </div>
+
+        </div>
     </div>
 </form>
+
+<script src="{% static 'js/post-form.js' %}"></script>
 {% endblock %}
