@@ -183,13 +183,9 @@ if DEBUG:
 else:
     MAILERS = {
         'default': {
-            'BACKEND': 'django.core.mail.backends.smtp.EmailBackend',
+            'BACKEND': 'core.email_backends.ResendEmailBackend',
             'OPTIONS': {
-                'host': 'authsmtp.securemail.pro',
-                'port': 465,
-                'username': env('EMAIL_HOST_USER'),
-                'password': env('EMAIL_HOST_PASSWORD'),
-                'use_ssl': True,
+                'api_key': env('RESEND_API_KEY'),
             },
         },
     }
