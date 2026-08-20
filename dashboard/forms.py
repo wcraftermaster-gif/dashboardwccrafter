@@ -3,6 +3,16 @@ from django import forms
 from django.utils.text import slugify
 from blog.models import Post, Category, Tag
 
+from django.contrib.auth import get_user_model
+from django.contrib.auth.models import Group
+from django.contrib.auth.password_validation import validate_password
+from django.core.exceptions import ValidationError
+
+
+User = get_user_model()
+
+CHECKBOX_CLASS = 'h-4 w-4 rounded border-gray-300 text-brand-500 focus:ring-brand-500'
+
 
 INPUT_CLASSES = (
     'w-full px-3.5 py-2.5 border border-gray-300 bg-white text-sm text-dark '
@@ -24,6 +34,65 @@ ALLOWED_ATTRS = {
     'td': ['style'],
     'th': ['style'],
 }
+
+class UserCreateForm(forms.ModelForm):
+    password1 = forms.CharField(label='Contraseña', widget=forms.PasswordInput(attrs={'class': INPUT_CLASSES}))
+    password2 = forms.CharField(label='Confirmar contraseña', widget=forms.PasswordInput(attrs={'class': INPUT_CLASSES}))
+    groups = forms.ModelMultipleChoiceField(
+        queryset=Group.objects.all(), required=False,
+        widget=forms.CheckboxSelectMultiple, label='Grupos',
+    )
+
+    class Meta:
+        model = User
+        fields = ['username', 'email', 'first_name', 'last_name', 'is_staff', 'is_active', 'groups']
+        widgets = {
+            'username': forms.TextInput(attrs={'class': INPUT_CLASSES}),
+            'email': forms.EmailInput(attrs={'class': INPUT_CLASSES}),
+            'first_name': forms.TextInput(attrs={'class': INPUT_CLASSES}),
+            'last_name': forms.TextInput(attrs={'class': INPUT_CLASSES}),
+            'is_staff': forms.CheckboxInput(attrs={'class': CHECKBOX_CLASS}),
+            'is_active': forms.CheckboxInput(attrs={'class': CHECKBOX_CLASS}),
+        }
+
+    def clean(self):
+        cleaned = super().clean()
+        p1, p2 = cleaned.get('password1'), cleaned.get('password2')
+        if p1 and p2 and p1 != p2:
+            self.add_error('password2', 'Las contraseñas no coinciden.')
+        if p1:
+            try:
+                validate_password(p1)
+            except ValidationError as e:
+                self.add_error('password1', e)
+        return cleaned
+
+    def save(self, commit=True):
+        user = super().save(commit=False)
+        user.set_password(self.cleaned_data['password1'])
+        if commit:
+            user.save()
+            self.save_m2m()
+        return user
+
+
+class UserUpdateForm(forms.ModelForm):
+    groups = forms.ModelMultipleChoiceField(
+        queryset=Group.objects.all(), required=False,
+        widget=forms.CheckboxSelectMultiple, label='Grupos',
+    )
+
+    class Meta:
+        model = User
+        fields = ['username', 'email', 'first_name', 'last_name', 'is_staff', 'is_active', 'groups']
+        widgets = {
+            'username': forms.TextInput(attrs={'class': INPUT_CLASSES}),
+            'email': forms.EmailInput(attrs={'class': INPUT_CLASSES}),
+            'first_name': forms.TextInput(attrs={'class': INPUT_CLASSES}),
+            'last_name': forms.TextInput(attrs={'class': INPUT_CLASSES}),
+            'is_staff': forms.CheckboxInput(attrs={'class': CHECKBOX_CLASS}),
+            'is_active': forms.CheckboxInput(attrs={'class': CHECKBOX_CLASS}),
+        }
 
 
 def generate_unique_slug(instance, base_slug):

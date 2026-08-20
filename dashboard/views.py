@@ -10,6 +10,11 @@ from blog.models import Post, Category, Tag
 from .decorators import staff_required
 from .forms import PostForm, CategoryForm, TagForm
 
+from django.contrib.auth import get_user_model
+from .forms import UserCreateForm, UserUpdateForm
+from .decorators import staff_required, superuser_required
+
+User = get_user_model()
 
 class StaffRequiredMixin(LoginRequiredMixin, UserPassesTestMixin):
     def test_func(self):
@@ -20,6 +25,14 @@ class StaffRequiredMixin(LoginRequiredMixin, UserPassesTestMixin):
             return super().handle_no_permission()
         raise PermissionDenied
 
+class SuperuserRequiredMixin(LoginRequiredMixin, UserPassesTestMixin):
+    def test_func(self):
+        return self.request.user.is_superuser
+
+    def handle_no_permission(self):
+        if not self.request.user.is_authenticated:
+            return super().handle_no_permission()
+        raise PermissionDenied
 
 class DashboardHomeView(StaffRequiredMixin, TemplateView):
     template_name = 'dashboard/home.html'
@@ -142,3 +155,52 @@ class TagDeleteView(StaffRequiredMixin, DeleteView):
     model = Tag
     template_name = 'dashboard/tag_confirm_delete.html'
     success_url = reverse_lazy('dashboard:tag_list')
+
+class UserListView(SuperuserRequiredMixin, ListView):
+    model = User
+    template_name = 'dashboard/user_list.html'
+    context_object_name = 'users'
+    paginate_by = 20
+
+    def get_queryset(self):
+        return User.objects.all().order_by('username').prefetch_related('groups')
+
+
+class UserCreateView(SuperuserRequiredMixin, CreateView):
+    model = User
+    form_class = UserCreateForm
+    template_name = 'dashboard/user_form.html'
+    success_url = reverse_lazy('dashboard:user_list')
+
+    def form_valid(self, form):
+        messages.success(self.request, 'Usuario creado correctamente.')
+        return super().form_valid(form)
+
+
+class UserUpdateView(SuperuserRequiredMixin, UpdateView):
+    model = User
+    form_class = UserUpdateForm
+    template_name = 'dashboard/user_form.html'
+    success_url = reverse_lazy('dashboard:user_list')
+
+    def form_valid(self, form):
+        if form.instance.pk == self.request.user.pk:
+            if not form.cleaned_data.get('is_active') or not form.cleaned_data.get('is_staff'):
+                form.add_error(None, 'No puedes desactivarte a ti mismo ni quitarte el acceso de staff.')
+                return self.form_invalid(form)
+        messages.success(self.request, 'Usuario actualizado.')
+        return super().form_valid(form)
+
+
+@superuser_required
+def user_toggle_active(request, pk):
+    user_obj = get_object_or_404(User, pk=pk)
+    if user_obj.pk == request.user.pk:
+        messages.error(request, 'No puedes desactivar tu propia cuenta.')
+        return redirect('dashboard:user_list')
+    if request.method == 'POST':
+        user_obj.is_active = not user_obj.is_active
+        user_obj.save(update_fields=['is_active'])
+        estado = 'activado' if user_obj.is_active else 'desactivado'
+        messages.success(request, f'Usuario {estado} correctamente.')
+    return redirect('dashboard:user_list')

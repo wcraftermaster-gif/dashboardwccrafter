@@ -18,4 +18,9 @@ urlpatterns = [
     path('etiquetas/', views.tag_list, name='tag_list'),
     path('etiquetas/<slug:slug>/editar/', views.TagUpdateView.as_view(), name='tag_edit'),
     path('etiquetas/<slug:slug>/eliminar/', views.TagDeleteView.as_view(), name='tag_delete'),
+
+    path('usuarios/', views.UserListView.as_view(), name='user_list'),
+    path('usuarios/nuevo/', views.UserCreateView.as_view(), name='user_create'),
+    path('usuarios/<int:pk>/editar/', views.UserUpdateView.as_view(), name='user_edit'),
+    path('usuarios/<int:pk>/toggle-active/', views.user_toggle_active, name='user_toggle_active'),
 ]
