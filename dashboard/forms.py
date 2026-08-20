@@ -5,7 +5,7 @@ from blog.models import Post, Category, Tag
 
 
 INPUT_CLASSES = (
-    'w-full px-3.5 py-2.5 rounded-lg border border-gray-300 bg-white text-sm text-dark '
+    'w-full px-3.5 py-2.5 border border-gray-300 bg-white text-sm text-dark '
     'placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-brand-500 '
     'focus:border-brand-500 transition-colors'
 )
@@ -53,7 +53,7 @@ class PostForm(forms.ModelForm):
     class Meta:
         model = Post
         fields = [
-            'title', 'slug', 'excerpt', 'content',
+            'title', 'slug', 'focus_keyword', 'excerpt', 'content',
             'featured_image', 'status', 'scheduled_at',
             'meta_title', 'meta_description', 'canonical_url', 'noindex',
         ]
@@ -65,9 +65,13 @@ class PostForm(forms.ModelForm):
                 'id': 'id_title',
             }),
             'slug': forms.TextInput(attrs={
-                'class': 'px-2 py-1 rounded border border-gray-300 text-sm text-dark '
+                'class': 'px-2 py-1 border border-gray-300 text-sm text-dark '
                          'focus:outline-none focus:ring-2 focus:ring-brand-500',
                 'id': 'id_slug',
+            }),
+            'focus_keyword': forms.TextInput(attrs={
+                'class': INPUT_CLASSES,
+                'placeholder': 'ej. desarrollo web con Django',
             }),
             'excerpt': forms.Textarea(attrs={'class': INPUT_CLASSES, 'rows': 3}),
             'featured_image': StyledClearableFileInput(attrs={'id': 'id_featured_image', 'class': 'hidden'}),
@@ -77,8 +81,9 @@ class PostForm(forms.ModelForm):
             'meta_description': forms.Textarea(attrs={'class': INPUT_CLASSES, 'rows': 2}),
             'canonical_url': forms.URLInput(attrs={'class': INPUT_CLASSES}),
             'noindex': forms.CheckboxInput(attrs={
-                'class': 'h-4 w-4 rounded border-gray-300 text-brand-500 focus:ring-brand-500'
+                'class': 'h-4 w-4  border-gray-300 text-brand-500 focus:ring-brand-500'
             }),
+
         }
 
     def __init__(self, *args, **kwargs):

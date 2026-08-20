@@ -15,44 +15,43 @@
         <div class="col-span-2 space-y-6">
 
            <!-- Título -->
-<div class="bg-surface-white rounded-lg shadow-sm p-6">
+<div class="bg-surface-white shadow-sm p-2 my-0">
     {{ form.title }}
     {% if form.title.errors %}
-        <p class="text-xs text-red-500 mt-1">{{ form.title.errors|striptags }}</p>
+        <p class="text-xs text-red-500">{{ form.title.errors|striptags }}</p>
     {% endif %}
 </div>
 
 <!-- Enlace permanente -->
-<div class="px-1">
-    <div id="permalink-display" class="flex items-center gap-1 text-sm text-gray-500">
+<div>
+    <div id="permalink-display" class="flex items-center text-sm text-gray-500 mt-2">
         <span>Enlace permanente:</span>
         <span class="text-gray-600">https://{{ request.get_host }}/blog/</span>
         <span id="slug-preview" class="text-brand-600 font-medium">{{ form.instance.slug|default:"se-generara-del-titulo" }}</span>
         <span class="text-gray-600">/</span>
-        <button type="button" id="edit-permalink-btn" class="text-brand-600 hover:text-brand-700 font-medium ml-1">
+        <button type="button" id="edit-permalink-btn" class="text-brand-600 hover:text-brand-700 font-medium">
             Editar
         </button>
     </div>
 
-    <div id="permalink-edit" class="hidden items-center gap-2">
+    <div id="permalink-edit" class="hidden items-center mt-3 ">
         <span class="text-sm text-gray-500">https://{{ request.get_host }}/blog/</span>
         {{ form.slug }}
-        <span class="text-sm text-gray-500">/</span>
-        <button type="button" id="save-permalink-btn" class="bg-brand-500 hover:bg-brand-600 text-white px-3 py-1 rounded text-sm">
+        <span class="text-sm text-gray-500 ">/</span>
+        <button type="button" id="save-permalink-btn" class="bg-brand-500 hover:bg-brand-600 text-white px-2 py-1 rounded text-sm">
             Aceptar
         </button>
-        <button type="button" id="cancel-permalink-btn" class="text-gray-600 hover:bg-gray-100 px-3 py-1 rounded text-sm">
+        <button type="button" id="cancel-permalink-btn" class="text-gray-600 hover:bg-gray-100 px-2 py-1 rounded text-sm">
             Cancelar
         </button>
     </div>
     {% if form.slug.errors %}
-        <p class="text-xs text-red-500 mt-1">{{ form.slug.errors|striptags }}</p>
+        <p class="text-xs text-red-500">{{ form.slug.errors|striptags }}</p>
     {% endif %}
 </div>
 
             <!-- Contenido -->
-            <div class="bg-surface-white rounded-lg shadow-sm p-6">
-                <label class="block text-sm font-medium text-dark mb-2">Contenido</label>
+            <div class="bg-surface-white shadow-sm p-0">
                 {{ form.content }}
                 {% if form.content.errors %}
                     <p class="text-xs text-red-500 mt-1">{{ form.content.errors|striptags }}</p>
@@ -60,54 +59,66 @@
             </div>
 
             <!-- Panel SEO estilo Yoast (antes del extracto) -->
-            <div class="bg-surface-white rounded-lg shadow-sm overflow-hidden">
+            <div class="bg-surface-white shadow-sm overflow-hidden ">
                 <button type="button" id="seo-panel-toggle"
                         class="w-full flex justify-between items-center px-6 py-4 text-left">
-                    <span class="text-sm font-semibold text-dark">SEO</span>
+                    <span class="text-sm font-semibold text-dark ">SEO</span>
                     <svg id="seo-panel-chevron" class="w-4 h-4 text-gray-400 transition-transform" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <path d="M6 9l6 6 6-6"/>
                     </svg>
                 </button>
 
-                <div id="seo-panel-body" class="hidden px-6 pb-6 space-y-4 border-t border-gray-100 pt-4">
-                    <div>
-                        <label for="{{ form.meta_title.id_for_label }}" class="block text-sm font-medium text-dark mb-1.5">
-                            Meta título
-                        </label>
-                        {{ form.meta_title }}
-                        <p class="text-xs text-gray-400 mt-1">Si se deja vacío, se usa el título del post. Recomendado: 50-60 caracteres.</p>
-                        {% if form.meta_title.errors %}<p class="text-xs text-red-500 mt-1">{{ form.meta_title.errors|striptags }}</p>{% endif %}
-                    </div>
+                 <div id="seo-panel-body" class="hidden px-6 pb-6 space-y-4 border-t border-gray-100 pt-4">
 
-                    <div>
-                        <label for="{{ form.meta_description.id_for_label }}" class="block text-sm font-medium text-dark mb-1.5">
-                            Meta descripción
-                        </label>
-                        {{ form.meta_description }}
-                        <p class="text-xs text-gray-400 mt-1">Recomendado: 120-160 caracteres.</p>
-                        {% if form.meta_description.errors %}<p class="text-xs text-red-500 mt-1">{{ form.meta_description.errors|striptags }}</p>{% endif %}
-                    </div>
+    <div>
+        <label for="{{ form.focus_keyword.id_for_label }}" class="block text-sm font-medium text-dark mb-1.5">
+            Frase clave en enfoque
+        </label>
+        {{ form.focus_keyword }}
+        <p class="text-xs text-gray-400 mt-1">La palabra o frase principal que quieres posicionar con este contenido.</p>
+        <div id="seo-checklist" class="mt-2 space-y-1"></div>
+    </div>
 
-                    <div>
-                        <label for="{{ form.canonical_url.id_for_label }}" class="block text-sm font-medium text-dark mb-1.5">
-                            URL canónica
-                        </label>
-                        {{ form.canonical_url }}
-                        <p class="text-xs text-gray-400 mt-1">Solo si este contenido también existe en otra URL.</p>
-                        {% if form.canonical_url.errors %}<p class="text-xs text-red-500 mt-1">{{ form.canonical_url.errors|striptags }}</p>{% endif %}
-                    </div>
+    <div>
+        <div class="flex justify-between items-center mb-1.5">
+            <label for="{{ form.meta_title.id_for_label }}" class="text-sm font-medium text-dark">Meta título</label>
+            <span id="meta-title-counter" class="text-xs font-medium text-gray-400">0/60</span>
+        </div>
+        {{ form.meta_title }}
+        <p class="text-xs text-gray-400 mt-1">Si se deja vacío, se usa el título del post. Recomendado: 50-60 caracteres.</p>
+        {% if form.meta_title.errors %}<p class="text-xs text-red-500 mt-1">{{ form.meta_title.errors|striptags }}</p>{% endif %}
+    </div>
 
-                    <div class="flex items-center gap-2">
-                        {{ form.noindex }}
-                        <label for="{{ form.noindex.id_for_label }}" class="text-sm text-dark">
-                            No indexar este post en buscadores
-                        </label>
-                    </div>
-                </div>
+    <div>
+        <div class="flex justify-between items-center mb-1.5">
+            <label for="{{ form.meta_description.id_for_label }}" class="text-sm font-medium text-dark">Meta descripción</label>
+            <span id="meta-description-counter" class="text-xs font-medium text-gray-400">0/160</span>
+        </div>
+        {{ form.meta_description }}
+        <p class="text-xs text-gray-400 mt-1">Recomendado: 120-160 caracteres.</p>
+        {% if form.meta_description.errors %}<p class="text-xs text-red-500 mt-1">{{ form.meta_description.errors|striptags }}</p>{% endif %}
+    </div>
+
+    <div>
+        <label for="{{ form.canonical_url.id_for_label }}" class="block text-sm font-medium text-dark mb-1.5">
+            URL canónica
+        </label>
+        {{ form.canonical_url }}
+        <p class="text-xs text-gray-400 mt-1">Solo si este contenido también existe en otra URL.</p>
+        {% if form.canonical_url.errors %}<p class="text-xs text-red-500 mt-1">{{ form.canonical_url.errors|striptags }}</p>{% endif %}
+    </div>
+
+    <div class="flex items-center gap-2">
+        {{ form.noindex }}
+        <label for="{{ form.noindex.id_for_label }}" class="text-sm text-dark">
+            No indexar este post en buscadores
+        </label>
+    </div>
+</div>
             </div>
 
             <!-- Extracto -->
-            <div class="bg-surface-white rounded-lg shadow-sm p-6">
+            <div class="bg-surface-white shadow-sm p-6">
                 <label for="{{ form.excerpt.id_for_label }}" class="block text-sm font-medium text-dark mb-1.5">
                     Extracto
                 </label>
@@ -124,7 +135,7 @@
         <div class="col-span-1 space-y-6">
 
             <!-- Caja de publicación -->
-            <div class="bg-surface-white rounded-lg shadow-sm p-5 space-y-4">
+            <div class="bg-surface-white  shadow-sm p-5 space-y-4">
                 <h3 class="text-sm font-semibold text-dark">Publicación</h3>
 
                 <div>
@@ -150,7 +161,7 @@
             </div>
 
            <!-- Imagen destacada -->
-<div class="bg-surface-white rounded-lg shadow-sm p-5">
+<div class="bg-surface-white  shadow-sm p-5">
     <h3 class="text-sm font-semibold text-dark mb-3">Imagen destacada</h3>
 
     <div id="featured-image-preview-wrapper" class="{% if not object.featured_image %}hidden{% endif %} mb-3">
@@ -184,8 +195,8 @@
     {% endif %}
 </div>
 
-            <!-- Categoría estilo WordPress -->
-            <div class="bg-surface-white rounded-lg shadow-sm p-5">
+            <!-- Categoría -->
+            <div class="bg-surface-white shadow-sm p-5">
                 <h3 class="text-sm font-semibold text-dark mb-3">Categoría</h3>
                 <div id="category-list" class="max-h-40 overflow-y-auto space-y-1.5 mb-3">
                     {% for cat in categories %}
@@ -210,8 +221,8 @@
                 {{ form.category_name }}
             </div>
 
-            <!-- Etiquetas estilo WordPress (chips) -->
-            <div class="bg-surface-white rounded-lg shadow-sm p-5">
+            <!-- Etiquetas estilo (chips) -->
+            <div class="bg-surface-white shadow-sm p-5">
                 <h3 class="text-sm font-semibold text-dark mb-3">Etiquetas</h3>
                 <div id="tags-chip-container" class="flex flex-wrap gap-1.5 mb-2"></div>
                 <input type="text" id="tags-text-input" placeholder="Escribe y presiona Enter"

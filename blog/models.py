@@ -82,7 +82,13 @@ class Post(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     published_at = models.DateTimeField(null=True, blank=True)
 
-    # --- SEO (estilo Yoast) ---
+    # --- SEO ---
+
+    focus_keyword = models.CharField(
+        max_length=100, blank=True,
+        help_text='Frase clave principal para optimizar este contenido.'
+    )
+
     meta_title = models.CharField(
         max_length=60, blank=True,
         help_text='Si se deja vacio, se usa el titulo del post. Recomendado: 50-60 caracteres.'

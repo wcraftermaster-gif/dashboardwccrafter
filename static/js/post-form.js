@@ -124,6 +124,64 @@ if (removeFeaturedBtn) {
             });
         });
     }
+// --- Contadores de caracteres SEO ---
+    function bindCounter(inputId, counterId, min, max) {
+    const input = document.getElementById(inputId);
+    const counter = document.getElementById(counterId);
+    if (!input || !counter) return;
+
+    function update() {
+        const len = input.value.length;
+        counter.textContent = len + '/' + max;
+        if (len === 0) {
+            counter.className = 'text-xs font-medium text-gray-400';
+        } else if (len < min || len > max) {
+            counter.className = 'text-xs font-medium text-red-500';
+        } else {
+            counter.className = 'text-xs font-medium text-green-600';
+        }
+    }
+    input.addEventListener('input', update);
+    update();
+}
+bindCounter('id_meta_title', 'meta-title-counter', 50, 60);
+bindCounter('id_meta_description', 'meta-description-counter', 120, 160);
+
+// --- Checklist de frase clave en enfoque ---
+    function updateSeoChecklist() {
+    const keywordInput = document.getElementById('id_focus_keyword');
+    const checklist = document.getElementById('seo-checklist');
+    if (!keywordInput || !checklist) return;
+
+    const keyword = keywordInput.value.trim().toLowerCase();
+    if (!keyword) {
+        checklist.innerHTML = '<p class="text-xs text-gray-400">Escribe una frase clave para ver el análisis.</p>';
+        return;
+    }
+
+    const title = (document.getElementById('id_title').value || '').toLowerCase();
+    const slug = (document.getElementById('id_slug').value || '').toLowerCase();
+    const metaDesc = (document.getElementById('id_meta_description').value || '').toLowerCase();
+
+    const checks = [
+        { label: 'Aparece en el título', pass: title.includes(keyword) },
+        { label: 'Aparece en el enlace permanente', pass: slug.includes(keyword.replace(/\s+/g, '-')) },
+        { label: 'Aparece en la meta descripción', pass: metaDesc.includes(keyword) },
+    ];
+
+    checklist.innerHTML = checks.map(function (c) {
+        const color = c.pass ? 'text-green-600' : 'text-orange-500';
+        const icon = c.pass ? '✓' : '○';
+        return '<p class="text-xs ' + color + '">' + icon + ' ' + c.label + '</p>';
+    }).join('');
+}
+
+['id_focus_keyword', 'id_title', 'id_slug', 'id_meta_description'].forEach(function (id) {
+    const el = document.getElementById(id);
+    if (el) el.addEventListener('input', updateSeoChecklist);
+});
+updateSeoChecklist();
+
 
     tagsTextInput.addEventListener('keydown', function (e) {
         if (e.key === 'Enter' || e.key === ',') {
@@ -137,5 +195,6 @@ if (removeFeaturedBtn) {
         }
     });
 
-    renderChips();
+    renderChips()
+
 });

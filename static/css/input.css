@@ -14,6 +14,7 @@
   --color-brand-600: #E6157A;
   --color-brand-700: #C90F68;
 
+
   /* Fondo claro (áreas de contenido) */
   --color-surface: #F4F4F7;
   --color-surface-white: #FFFFFF;
@@ -22,4 +23,9 @@
   --shadow-brand: 4px 0 15px rgba(0, 0, 0, 0.5);
 
   --font-sans: "Inter", system-ui, sans-serif;
+}
+
+
+.ck-word-count {
+  padding: 8px 12px;
 }
