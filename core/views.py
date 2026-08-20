@@ -1,6 +1,5 @@
 from django.views.generic import TemplateView
 from blog.models import Post
-from django.http import JsonResponse
 
 
 class HomeView(TemplateView):
@@ -11,7 +10,3 @@ class HomeView(TemplateView):
         context['latest_posts'] = Post.published.select_related('author', 'category')[:3]
         return context
 
-
-def ping_view(request):
-    """Endpoint para mantener despierto el servicio en Render"""
-    return JsonResponse({"status": "OK"})

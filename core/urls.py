@@ -5,5 +5,4 @@ app_name = 'core'
 
 urlpatterns = [
     path('', views.HomeView.as_view(), name='home'),
-path('cron/', views.ping_view, name='cron'),
 ]
