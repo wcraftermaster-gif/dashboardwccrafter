@@ -4,19 +4,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}Acceso{% endblock %} · Mi Sitio</title>
+    <title>{% block title %}Acceso{% endblock %} · WCrafter</title>
     <link rel="stylesheet" href="{% static 'css/main.css' %}">
 </head>
 <body class="bg-dark min-h-screen flex items-center justify-center p-4">
     <div class="w-full max-w-md">
-        <div class="text-center mb-6">
-            <span class="text-brand-500 font-bold text-2xl">Mi Sitio</span>
+         <div class="flex items-center justify-center gap-2 border-b border-white/20 overflow-hidden">
+       <img src="{% static 'img/favicon.png' %}" alt="Crafter" class="size-20 h-auto">
+        <span class="sidebar-label text-white font-bold text-xl -ml-2 whitespace-nowrap">Crafter</span>
         </div>
-
-        <div class="bg-surface-white rounded-xl shadow-brand p-8">
+        <div class="mt-6 bg-black rounded-xl shadow-[0px_8px_40px_-6px_#FF2D8E] border border-white/5 p-8">
             {% if messages %}
                 {% for message in messages %}
-                    <div class="mb-4 px-4 py-3 rounded-lg bg-brand-50 text-brand-700 text-sm">
+                    <div class="mb-4 px-4 py-3 rounded-lg bg-brand-500/10 border border-brand-500/30 text-brand-300 text-sm">
                         {{ message }}
                     </div>
                 {% endfor %}

@@ -1,25 +1,198 @@
 {% extends "dashboard/base_dashboard.html" %}
 {% block title %}Inicio{% endblock %}
-{% block page_title %}Dashboard{% endblock %}
-
+{% block page_title %}¡Hola, {{ request.user.first_name|default:request.user.username }}! 👋{% endblock %}
 {% block content %}
-<div class="grid grid-cols-3 gap-4">
-    <div class="bg-surface-white rounded-lg p-6 shadow-sm border-l-4 border-brand-500">
-        <p class="text-sm text-gray-500">Total de posts</p>
-        <p class="text-2xl font-bold text-dark">{{ total_posts }}</p>
+<div class="space-y-6">
+    <!-- Métricas -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div class="bg-dark rounded-xl p-5 shadow-lg border border-white/5">
+            <div class="flex items-center justify-between">
+                <div>
+                    <p class="text-sm font-medium text-white">Total de posts</p>
+                    <p class="text-3xl font-bold text-white mt-2">{{ total_posts }}</p>
+                </div>
+                <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center">
+                    <svg class="w-5 h-5 text-brand-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                    </svg>
+                </div>
+            </div>
+        </div>
+        <div class="bg-dark rounded-xl p-5 shadow-lg border border-white/5">
+            <div class="flex items-center justify-between">
+                <div>
+                    <p class="text-sm font-medium text-white">Publicados</p>
+                    <p class="text-3xl font-bold text-white mt-2">{{ published_count }}</p>
+                </div>
+                <div class="w-10 h-10 rounded-lg bg-green-500/10 flex items-center justify-center">
+                    <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                    </svg>
+                </div>
+            </div>
+        </div>
+        <div class="bg-dark rounded-xl p-5 shadow-lg border border-white/5">
+            <div class="flex items-center justify-between">
+                <div>
+                    <p class="text-sm font-medium text-white">Borradores</p>
+                    <p class="text-3xl font-bold text-white mt-2">{{ draft_count }}</p>
+                </div>
+                <div class="w-10 h-10 rounded-lg bg-yellow-500/10 flex items-center justify-center">
+                    <svg class="w-5 h-5 text-yellow-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
+                    </svg>
+                </div>
+            </div>
+        </div>
+        <div class="bg-dark rounded-xl p-5 shadow-lg border border-white/5">
+            <div class="flex items-center justify-between">
+                <div>
+                    <p class="text-sm font-medium text-white">Programados</p>
+                    <p class="text-3xl font-bold text-white mt-2">{{ scheduled_count }}</p>
+                </div>
+                <div class="w-10 h-10 rounded-lg bg-purple-500/10 flex items-center justify-center">
+                    <svg class="w-5 h-5 text-purple-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                    </svg>
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="bg-surface-white rounded-lg p-6 shadow-sm border-l-4 border-brand-500">
-        <p class="text-sm text-gray-500">Publicados</p>
-        <p class="text-2xl font-bold text-dark">{{ published_count }}</p>
-    </div>
-    <div class="bg-surface-white rounded-lg p-6 shadow-sm border-l-4 border-brand-500">
-        <p class="text-sm text-gray-500">Borradores</p>
-        <p class="text-2xl font-bold text-dark">{{ draft_count }}</p>
+
+    <!-- Contenido principal -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <!-- Posts recientes -->
+        <div class="lg:col-span-1 bg-dark rounded-xl p-4 shadow-lg border border-white/5">
+            <div class="flex items-center justify-between mb-3">
+                <div>
+                    <h3 class="text-sm font-semibold text-white">Posts recientes</h3>
+                    <p class="text-xs text-gray-500 mt-0.5">Últimos contenidos creados.</p>
+                </div>
+                <a href="{% url 'dashboard:post_list' %}" class="text-xs text-brand-500 hover:text-brand-400">Ver todos →</a>
+            </div>
+            <div class="space-y-1.5">
+                {% for post in recent_posts %}
+                <a href="{% url 'dashboard:post_edit' post.pk %}" class="flex gap-2 p-2 rounded-lg hover:bg-dark-700 transition-colors">
+                    {% if post.featured_image %}
+                        <img src="{{ post.featured_image.url }}" alt="{{ post.title }}" class="w-12 h-10 object-cover rounded-lg shrink-0">
+                    {% else %}
+                        <div class="w-12 h-10 bg-dark-700 rounded-lg shrink-0 flex items-center justify-center">
+                            <svg class="w-3.5 h-3.5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                            </svg>
+                        </div>
+                    {% endif %}
+                    <div class="min-w-0 flex-1">
+                        <div class="flex items-start justify-between gap-2">
+                            <h4 class="text-xs font-medium text-white truncate">{{ post.title }}</h4>
+                            <span class="text-xs shrink-0 {% if post.status == 'published' %}text-green-400{% elif post.status == 'scheduled' %}text-purple-400{% elif post.status == 'draft' %}text-yellow-400{% else %}text-gray-500{% endif %}">
+                                {{ post.get_status_display }}
+                            </span>
+                        </div>
+                        {% if post.excerpt %}
+                            <p class="text-xs text-gray-400 mt-0.5 line-clamp-1">{{ post.excerpt }}</p>
+                        {% endif %}
+                        <div class="flex items-center gap-2 mt-0.5">
+                            {% if post.category %}
+                                <span class="text-xs text-brand-500">{{ post.category.name }}</span>
+                            {% endif %}
+                            <span class="text-xs text-gray-500">{{ post.created_at|timesince }}</span>
+                        </div>
+                    </div>
+                </a>
+                {% empty %}
+                <div class="py-4 text-center">
+                    <p class="text-sm text-gray-500">No hay posts todavía.</p>
+                    <a href="{% url 'dashboard:post_create' %}" class="inline-block mt-2 text-sm text-brand-500 hover:text-brand-400">Crear primer post →</a>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+<!-- Intentos de acceso -->
+<div class="bg-dark rounded-xl p-4 shadow-lg border border-white/5">
+    <h3 class="text-sm font-semibold text-white mb-3">Intentos de acceso recientes</h3>
+    <div class="space-y-2">
+        {% for log in axes_logs %}
+        <div class="flex justify-between items-center text-xs">
+            <span class="text-white">{{ log.username|default:"—" }}</span>
+            <span class="{% if log.failures_since_start > 0 %}text-red-400{% else %}text-green-400{% endif %}">
+                {{ log.ip_address }}
+            </span>
+            <span class="text-gray-500">{{ log.attempt_time|timesince }}</span>
+        </div>
+        {% empty %}
+        <p class="text-sm text-gray-500 text-center py-3">Sin actividad reciente.</p>
+        {% endfor %}
     </div>
 </div>
+        <!-- Actividad reciente -->
+        <div class="bg-dark rounded-xl p-4 shadow-lg border border-white/5">
+            <div class="flex items-center justify-between mb-3">
+                <h3 class="text-sm font-semibold text-white">Actividad reciente</h3>
+            </div>
+            <div class="space-y-2">
+                {% for log in admin_logs %}
+                <div class="flex gap-2">
+                    <div class="w-6 h-6 rounded-full bg-brand-500/10 flex items-center justify-center shrink-0">
+                        {% if log.action_flag == 1 %}
+                            <svg class="w-3 h-3 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+                            </svg>
+                        {% elif log.action_flag == 2 %}
+                            <svg class="w-3 h-3 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5"/>
+                            </svg>
+                        {% else %}
+                            <svg class="w-3 h-3 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
+                            </svg>
+                        {% endif %}
+                    </div>
+                    <div class="min-w-0 flex-1">
+                        <p class="text-xs text-white truncate">{{ log.object_repr }}</p>
+                        <p class="text-xs text-gray-400">
+                            {{ log.content_type.model|title }} • {% if log.action_flag == 1 %}Creado{% elif log.action_flag == 2 %}Actualizado{% else %}Eliminado{% endif %}
+                        </p>
+                        <p class="text-xs text-gray-500 mt-0.5">{{ log.action_time|timesince }} atrás</p>
+                    </div>
+                </div>
+                {% empty %}
+                <p class="text-sm text-gray-500 text-center py-3">No hay actividad reciente.</p>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
 
-<a href="{% url 'dashboard:post_list' %}"
-   class="inline-block mt-6 bg-brand-500 hover:bg-brand-600 text-white px-4 py-2 rounded-lg transition-colors">
-    Gestionar posts
-</a>
+    <!-- Accesos rápidos -->
+    <div class="bg-dark rounded-xl p-6 shadow-lg border border-white/5">
+        <h3 class="text-lg font-semibold text-white mb-4">Accesos rápidos</h3>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+            <a href="{% url 'dashboard:post_create' %}" class="flex items-center gap-3 p-3 rounded-sm bg-dark-700/40 hover:bg-dark-700 transition-colors">
+                <svg class="w-5 h-5 text-brand-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+                </svg>
+                <span class="text-sm text-gray-300">Nuevo post</span>
+            </a>
+            <a href="{% url 'dashboard:post_list' %}" class="flex items-center gap-3 p-3 rounded-sm bg-dark-700/40 hover:bg-dark-700 transition-colors">
+                <svg class="w-5 h-5 text-brand-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/>
+                </svg>
+                <span class="text-sm text-gray-300">Posts</span>
+            </a>
+            <a href="{% url 'dashboard:category_list' %}" class="flex items-center gap-3 p-3 rounded-sm bg-dark-700/40 hover:bg-dark-700 transition-colors">
+                <svg class="w-5 h-5 text-brand-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7a2 2 0 012-2h4l2 2h8a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2V7z"/>
+                </svg>
+                <span class="text-sm text-gray-300">Categorías</span>
+            </a>
+            <a href="{% url 'dashboard:tag_list' %}" class="flex items-center gap-3 p-3 rounded-sm bg-dark-700/40 hover:bg-dark-700 transition-colors">
+                <svg class="w-5 h-5 text-brand-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.59 13.41L13.41 20.6a2 2 0 01-2.83 0L2 12V2h10l8.59 8.59a2 2 0 010 2.82z"/>
+                    <circle cx="7.5" cy="7.5" r="1.5"/>
+                </svg>
+                <span class="text-sm text-gray-300">Etiquetas</span>
+            </a>
+        </div>
+    </div>
+</div>
 {% endblock %}

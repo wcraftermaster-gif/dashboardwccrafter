@@ -1,29 +1,274 @@
 {% extends "base.html" %}
-
+{% load static %}
 {% block title %}Inicio{% endblock %}
-{% block meta_description %}Portafolio, servicios y blog.{% endblock %}
-
+{% block meta_description %}Diseño y desarrollo web que impulsa tu negocio. Soluciones digitales a la medida.{% endblock %}
 {% block content %}
-    <section>
-        <h1>Bienvenido a mi sitio</h1>
-        <p>Aquí va tu presentación / hero section.</p>
-    </section>
 
-    <section>
-        <h2>Servicios</h2>
-        <p>Placeholder — aquí conectaremos la app de servicios/portafolio más adelante.</p>
-    </section>
+<!-- Hero Section -->
+<section class="relative min-h-screen flex items-center justify-center overflow-hidden bg-dark pt-16">
+    <!-- Background Effects -->
+    <div class="absolute inset-0 bg-gradient-to-br from-brand-500/10 via-transparent to-purple-600/10"></div>
+    <div class="absolute top-20 right-20 w-96 h-96 bg-brand-500/20 rounded-full blur-3xl"></div>
+    <div class="absolute bottom-20 left-20 w-96 h-96 bg-purple-600/20 rounded-full blur-3xl"></div>
 
-    <section>
-        <h2>Últimas publicaciones</h2>
-        {% for post in latest_posts %}
-            <article>
-                <h3><a href="{% url 'blog:post_detail' post.slug %}">{{ post.title }}</a></h3>
-                <p>{{ post.excerpt }}</p>
-            </article>
-        {% empty %}
-            <p>Todavía no hay publicaciones.</p>
-        {% endfor %}
-        <a href="{% url 'blog:post_list' %}">Ver todo el blog →</a>
-    </section>
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div>
+                <p class="text-brand-500 font-semibold mb-4">WCRAFTER</p>
+                <h1 class="text-5xl md:text-6xl font-bold text-white leading-tight mb-6">
+                    Diseño y desarrollo web que <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-500 to-purple-600">impulsa</span> tu negocio.
+                </h1>
+                <p class="text-gray-400 text-lg mb-8 leading-relaxed">
+                    Creamos sitios web, herramientas y aplicaciones personalizadas con tecnologías modernas. Rápidas, seguras y escalables.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4">
+                    <a href="#servicios" class="bg-brand-500 hover:bg-brand-600 text-white px-8 py-3 rounded-full font-medium transition-all flex items-center justify-center gap-2">
+                        Ver servicios
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                        </svg>
+                    </a>
+                    <a href="#proyectos" class="border border-white/20 hover:border-brand-500 text-white px-8 py-3 rounded-full font-medium transition-all text-center">
+                        Ver proyectos
+                    </a>
+                </div>
+
+                <div class="mt-12">
+                    <p class="text-sm text-gray-500 mb-4">Tecnologías en las que trabajo</p>
+                    <div class="flex flex-wrap gap-4">
+                        <div class="w-10 h-10 bg-white/5 rounded-lg flex items-center justify-center" title="WordPress">
+                            <svg class="w-6 h-6 text-gray-400" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.486 2 2 6.486 2 12s4.486 10 10 10 10-4.486 10-10S17.514 2 12 2zm-1.5 17.5c-1.5 0-2.5-.5-2.5-2 0-1 .5-2 1.5-3 .5-.5 1-1 1-2s-.5-1.5-1.5-1.5c-1 0-2 1-2 2.5 0 .5-.5 1-1 1s-1-.5-1-1c0-2.5 2-4.5 4.5-4.5 2 0 3.5 1.5 3.5 3.5 0 1.5-1 2.5-2 3.5-.5.5-1 1-1 2s.5 1.5 1.5 1.5c1 0 2-1 2-2.5 0-.5.5-1 1-1s1 .5 1 1c0 2.5-2 4.5-4.5 4.5z"/></svg>
+                        </div>
+                        <div class="w-10 h-10 bg-white/5 rounded-lg flex items-center justify-center" title="Python">
+                            <svg class="w-6 h-6 text-gray-400" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2c-2.5 0-4 1.5-4 3.5V8h4v1H4.5C2.5 9 1 10.5 1 12.5S2.5 16 4.5 16h1.5v-2c0-1.5 1-2.5 2.5-2.5h5c1.5 0 2.5-1 2.5-2.5V5.5C16 3.5 14.5 2 12 2zm-3.5 3c0-.5.5-1 1-1s1 .5 1 1-.5 1-1 1-1-.5-1-1zm7 13.5c0 2-1.5 3.5-3.5 3.5s-3.5-1.5-3.5-3.5V17h-4c-1.5 0-2.5-1-2.5-2.5s1-2.5 2.5-2.5h1.5v2c0 1.5 1 2.5 2.5 2.5h5c1.5 0 2.5-1 2.5-2.5V13h-4v1h4v1.5zm-1.5 2c0 .5-.5 1-1 1s-1-.5-1-1 .5-1 1-1 1 .5 1 1z"/></svg>
+                        </div>
+                        <div class="w-10 h-10 bg-white/5 rounded-lg flex items-center justify-center" title="JavaScript">
+                            <span class="text-yellow-500 font-bold text-lg">JS</span>
+                        </div>
+                        <div class="w-10 h-10 bg-white/5 rounded-lg flex items-center justify-center" title="HTML5">
+                            <span class="text-orange-500 font-bold text-sm">HTML</span>
+                        </div>
+                        <div class="w-10 h-10 bg-white/5 rounded-lg flex items-center justify-center" title="CSS3">
+                            <span class="text-blue-500 font-bold text-sm">CSS</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="relative">
+                <div class="relative bg-gradient-to-br from-brand-500/20 to-purple-600/20 rounded-2xl p-8 border border-white/10">
+                    <div class="bg-dark rounded-xl overflow-hidden shadow-2xl">
+                        <div class="bg-gray-800 px-4 py-3 flex items-center gap-2">
+                            <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                            <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                            <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                            <div class="ml-4 text-xs text-gray-400">wcrafter.com</div>
+                        </div>
+                        <div class="p-6 space-y-4">
+                            <div class="h-8 bg-brand-500/20 rounded w-3/4"></div>
+                            <div class="h-4 bg-gray-700 rounded w-full"></div>
+                            <div class="h-4 bg-gray-700 rounded w-5/6"></div>
+                            <div class="grid grid-cols-2 gap-4 mt-6">
+                                <div class="h-24 bg-brand-500/10 rounded-lg"></div>
+                                <div class="h-24 bg-purple-500/10 rounded-lg"></div>
+                            </div>
+                            <div class="mt-4 bg-brand-500 text-white px-4 py-2 rounded-lg text-center text-sm font-medium">
+                                Soluciones digitales a tu medida
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Servicios Section -->
+<section id="servicios" class="py-20 bg-surface">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16">
+            <p class="text-brand-500 font-semibold mb-2">SERVICIOS</p>
+            <h2 class="text-3xl md:text-4xl font-bold text-dark mb-4">Soluciones digitales a la medida</h2>
+            <p class="text-gray-500 max-w-2xl mx-auto">Ofrezco soluciones completas para llevar tu idea al siguiente nivel con enfoque en rendimiento, experiencia de usuario y escalabilidad.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <!-- Servicio 1 -->
+            <div class="bg-white rounded-xl p-6 shadow-sm hover:shadow-xl transition-shadow border border-gray-100 group">
+                <div class="w-14 h-14 bg-brand-500/10 rounded-full flex items-center justify-center mb-4 group-hover:bg-brand-500 transition-colors">
+                    <svg class="w-7 h-7 text-brand-500 group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                    </svg>
+                </div>
+                <h3 class="text-lg font-semibold text-dark mb-2">Diseño Web</h3>
+                <p class="text-sm text-gray-500">Diseños modernos, limpios y centrados en la experiencia de usuario y la conversión.</p>
+            </div>
+
+            <!-- Servicio 2 -->
+            <div class="bg-white rounded-xl p-6 shadow-sm hover:shadow-xl transition-shadow border border-gray-100 group">
+                <div class="w-14 h-14 bg-brand-500/10 rounded-full flex items-center justify-center mb-4 group-hover:bg-brand-500 transition-colors">
+                    <svg class="w-7 h-7 text-brand-500 group-hover:text-white transition-colors" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 2C6.486 2 2 6.486 2 12s4.486 10 10 10 10-4.486 10-10S17.514 2 12 2zm-1.5 17.5c-1.5 0-2.5-.5-2.5-2 0-1 .5-2 1.5-3 .5-.5 1-1 1-2s-.5-1.5-1.5-1.5c-1 0-2 1-2 2.5 0 .5-.5 1-1 1s-1-.5-1-1c0-2.5 2-4.5 4.5-4.5 2 0 3.5 1.5 3.5 3.5 0 1.5-1 2.5-2 3.5-.5.5-1 1-1 2s.5 1.5 1.5 1.5c1 0 2-1 2-2.5 0-.5.5-1 1-1s1 .5 1 1c0 2.5-2 4.5-4.5 4.5z"/>
+                    </svg>
+                </div>
+                <h3 class="text-lg font-semibold text-dark mb-2">Desarrollo WordPress</h3>
+                <p class="text-sm text-gray-500">Sitios a medida, temas personalizados y optimización avanzada en WordPress.</p>
+            </div>
+
+            <!-- Servicio 3 -->
+            <div class="bg-white rounded-xl p-6 shadow-sm hover:shadow-xl transition-shadow border border-gray-100 group">
+                <div class="w-14 h-14 bg-brand-500/10 rounded-full flex items-center justify-center mb-4 group-hover:bg-brand-500 transition-colors">
+                    <svg class="w-7 h-7 text-brand-500 group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 4a2 2 0 114 0v1a1 1 0 001 1h3a1 1 0 011 1v3a1 1 0 01-1 1h-1a2 2 0 100 4h1a1 1 0 011 1v3a1 1 0 01-1 1h-3a1 1 0 01-1-1v-1a2 2 0 10-4 0v1a1 1 0 01-1 1H7a1 1 0 01-1-1v-3a1 1 0 00-1-1H4a2 2 0 110-4h1a1 1 0 001-1V7a1 1 0 011-1h3a1 1 0 001-1V4z"/>
+                    </svg>
+                </div>
+                <h3 class="text-lg font-semibold text-dark mb-2">Plugins & Herramientas</h3>
+                <p class="text-sm text-gray-500">Desarrollo de plugins y herramientas personalizadas para WordPress.</p>
+            </div>
+
+            <!-- Servicio 4 -->
+            <div class="bg-white rounded-xl p-6 shadow-sm hover:shadow-xl transition-shadow border border-gray-100 group">
+                <div class="w-14 h-14 bg-brand-500/10 rounded-full flex items-center justify-center mb-4 group-hover:bg-brand-500 transition-colors">
+                    <svg class="w-7 h-7 text-brand-500 group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/>
+                    </svg>
+                </div>
+                <h3 class="text-lg font-semibold text-dark mb-2">Aplicaciones Web</h3>
+                <p class="text-sm text-gray-500">Desarrollo de aplicaciones web con Python y otras tecnologías modernas.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Proyectos Section -->
+<section id="proyectos" class="py-20 bg-dark">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex items-end justify-between mb-12">
+            <div>
+                <p class="text-brand-500 font-semibold mb-2">PROYECTOS DESTACADOS</p>
+                <h2 class="text-3xl md:text-4xl font-bold text-white">Algunos proyectos recientes</h2>
+            </div>
+            <a href="#" class="hidden md:flex items-center gap-2 text-brand-500 hover:text-brand-400 transition-colors">
+                Ver todos los proyectos
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                </svg>
+            </a>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <!-- Proyecto 1 -->
+            <div class="group relative bg-dark-700 rounded-xl overflow-hidden border border-white/5 hover:border-brand-500/50 transition-all">
+                <div class="h-48 bg-gradient-to-br from-purple-600/30 to-brand-500/30 flex items-center justify-center">
+                    <svg class="w-16 h-16 text-brand-500/50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+                    </svg>
+                </div>
+                <div class="p-6">
+                    <h3 class="text-lg font-semibold text-white mb-2">Dashboard Analytics</h3>
+                    <p class="text-sm text-gray-400 mb-4">Plataforma analítica desarrollada con Python (Django) y React.</p>
+                    <span class="inline-block px-3 py-1 bg-brand-500/10 text-brand-500 text-xs rounded-full">Aplicación Web</span>
+                </div>
+            </div>
+
+            <!-- Proyecto 2 -->
+            <div class="group relative bg-dark-700 rounded-xl overflow-hidden border border-white/5 hover:border-brand-500/50 transition-all">
+                <div class="h-48 bg-gradient-to-br from-blue-600/30 to-purple-600/30 flex items-center justify-center">
+                    <svg class="w-16 h-16 text-purple-500/50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
+                    </svg>
+                </div>
+                <div class="p-6">
+                    <h3 class="text-lg font-semibold text-white mb-2">EducaPro</h3>
+                    <p class="text-sm text-gray-400 mb-4">Sitio web educativo con WordPress y sistema de membresías.</p>
+                    <span class="inline-block px-3 py-1 bg-purple-500/10 text-purple-500 text-xs rounded-full">WordPress</span>
+                </div>
+            </div>
+
+            <!-- Proyecto 3 -->
+            <div class="group relative bg-dark-700 rounded-xl overflow-hidden border border-white/5 hover:border-brand-500/50 transition-all">
+                <div class="h-48 bg-gradient-to-br from-orange-600/30 to-red-600/30 flex items-center justify-center">
+                    <svg class="w-16 h-16 text-orange-500/50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
+                    </svg>
+                </div>
+                <div class="p-6">
+                    <h3 class="text-lg font-semibold text-white mb-2">Restaurantes WP</h3>
+                    <p class="text-sm text-gray-400 mb-4">Sitio web para restaurantes con reservas y pedidos en línea.</p>
+                    <span class="inline-block px-3 py-1 bg-orange-500/10 text-orange-500 text-xs rounded-full">WordPress</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-8 text-center md:hidden">
+            <a href="#" class="inline-flex items-center gap-2 text-brand-500 hover:text-brand-400 transition-colors">
+                Ver todos los proyectos
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                </svg>
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- Tecnologías Section -->
+<section class="py-20 bg-surface">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12">
+            <p class="text-brand-500 font-semibold mb-2">TECNOLOGÍAS</p>
+            <h2 class="text-3xl md:text-4xl font-bold text-dark mb-4">Herramientas con las que trabajo</h2>
+        </div>
+
+        <div class="grid grid-cols-4 md:grid-cols-8 gap-4">
+            <div class="bg-white rounded-lg p-4 shadow-sm flex flex-col items-center justify-center hover:shadow-md transition-shadow">
+                <svg class="w-8 h-8 text-gray-700 mb-2" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.486 2 2 6.486 2 12s4.486 10 10 10 10-4.486 10-10S17.514 2 12 2zm-1.5 17.5c-1.5 0-2.5-.5-2.5-2 0-1 .5-2 1.5-3 .5-.5 1-1 1-2s-.5-1.5-1.5-1.5c-1 0-2 1-2 2.5 0 .5-.5 1-1 1s-1-.5-1-1c0-2.5 2-4.5 4.5-4.5 2 0 3.5 1.5 3.5 3.5 0 1.5-1 2.5-2 3.5-.5.5-1 1-1 2s.5 1.5 1.5 1.5c1 0 2-1 2-2.5 0-.5.5-1 1-1s1 .5 1 1c0 2.5-2 4.5-4.5 4.5z"/></svg>
+                <span class="text-xs text-gray-600">WordPress</span>
+            </div>
+            <div class="bg-white rounded-lg p-4 shadow-sm flex flex-col items-center justify-center hover:shadow-md transition-shadow">
+                <span class="text-purple-600 font-bold text-lg mb-2">PHP</span>
+                <span class="text-xs text-gray-600">PHP</span>
+            </div>
+            <div class="bg-white rounded-lg p-4 shadow-sm flex flex-col items-center justify-center hover:shadow-md transition-shadow">
+                <svg class="w-8 h-8 text-blue-500 mb-2" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2c-2.5 0-4 1.5-4 3.5V8h4v1H4.5C2.5 9 1 10.5 1 12.5S2.5 16 4.5 16h1.5v-2c0-1.5 1-2.5 2.5-2.5h5c1.5 0 2.5-1 2.5-2.5V5.5C16 3.5 14.5 2 12 2zm-3.5 3c0-.5.5-1 1-1s1 .5 1 1-.5 1-1 1-1-.5-1-1zm7 13.5c0 2-1.5 3.5-3.5 3.5s-3.5-1.5-3.5-3.5V17h-4c-1.5 0-2.5-1-2.5-2.5s1-2.5 2.5-2.5h1.5v2c0 1.5 1 2.5 2.5 2.5h5c1.5 0 2.5-1 2.5-2.5V13h-4v1h4v1.5zm-1.5 2c0 .5-.5 1-1 1s-1-.5-1-1 .5-1 1-1 1 .5 1 1z"/></svg>
+                <span class="text-xs text-gray-600">Python</span>
+            </div>
+            <div class="bg-white rounded-lg p-4 shadow-sm flex flex-col items-center justify-center hover:shadow-md transition-shadow">
+                <span class="text-yellow-500 font-bold text-lg mb-2">JS</span>
+                <span class="text-xs text-gray-600">JavaScript</span>
+            </div>
+            <div class="bg-white rounded-lg p-4 shadow-sm flex flex-col items-center justify-center hover:shadow-md transition-shadow">
+                <span class="text-orange-500 font-bold text-sm mb-2">HTML5</span>
+                <span class="text-xs text-gray-600">HTML5</span>
+            </div>
+            <div class="bg-white rounded-lg p-4 shadow-sm flex flex-col items-center justify-center hover:shadow-md transition-shadow">
+                <span class="text-blue-500 font-bold text-sm mb-2">CSS3</span>
+                <span class="text-xs text-gray-600">CSS3</span>
+            </div>
+            <div class="bg-white rounded-lg p-4 shadow-sm flex flex-col items-center justify-center hover:shadow-md transition-shadow">
+                <span class="text-cyan-500 font-bold text-sm mb-2">TW</span>
+                <span class="text-xs text-gray-600">Tailwind</span>
+            </div>
+            <div class="bg-white rounded-lg p-4 shadow-sm flex flex-col items-center justify-center hover:shadow-md transition-shadow">
+                <span class="text-orange-600 font-bold text-sm mb-2">Git</span>
+                <span class="text-xs text-gray-600">Git</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section id="contacto" class="py-20 bg-dark">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="bg-gradient-to-r from-brand-500/20 to-purple-600/20 rounded-2xl p-8 md:p-12 border border-white/10 text-center">
+            <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">¿Tienes un proyecto en mente?</h2>
+            <p class="text-gray-400 mb-8 max-w-xl mx-auto">Hablemos y hagamos realidad tu idea.</p>
+            <a href="mailto:hola@wcrafter.com" class="inline-flex items-center gap-2 bg-brand-500 hover:bg-brand-600 text-white px-8 py-3 rounded-full font-medium transition-colors">
+                Iniciar proyecto
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                </svg>
+            </a>
+        </div>
+    </div>
+</section>
 {% endblock %}

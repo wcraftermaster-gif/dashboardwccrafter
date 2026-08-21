@@ -2,25 +2,43 @@
 {% block title %}Iniciar sesión{% endblock %}
 
 {% block content %}
-<h1 class="text-xl font-semibold text-dark mb-6">Iniciar sesión</h1>
+<h1 class="text-xl font-semibold text-white text-center mb-6">Iniciar sesión</h1>
 
 <form method="post" class="space-y-4">
     {% csrf_token %}
-    {% for field in form %}
-        <div>
-            <label for="{{ field.id_for_label }}" class="block text-sm font-medium text-dark mb-1.5">
-                {{ field.label }}
-            </label>
-            {{ field }}
-            {% if field.help_text %}<p class="text-xs text-gray-400 mt-1">{{ field.help_text }}</p>{% endif %}
-            {% if field.errors %}<p class="text-xs text-red-500 mt-1">{{ field.errors|striptags }}</p>{% endif %}
-        </div>
-    {% endfor %}
+
+    <div>
+        <label for="{{ form.login.id_for_label }}" class="block text-sm font-medium text-white mb-1.5">
+            {{ form.login.label }}
+        </label>
+        {{ form.login }}
+        {% if form.login.errors %}
+            <p class="text-xs text-red-500 mt-1">{{ form.login.errors|striptags }}</p>
+        {% endif %}
+    </div>
+
+    <div>
+        <label for="{{ form.password.id_for_label }}" class="block text-sm font-medium text-white mb-1.5">
+            {{ form.password.label }}
+        </label>
+        {{ form.password }}
+        {% if form.password.errors %}
+            <p class="text-xs text-red-500 mt-1">{{ form.password.errors|striptags }}</p>
+        {% endif %}
+    </div>
+
+    <div class="flex items-center">
+        {{ form.remember }}
+        <label for="{{ form.remember.id_for_label }}" class="ml-2 text-xs text-white">
+            Recordarme
+        </label>
+    </div>
+
     {% if form.non_field_errors %}
         <p class="text-xs text-red-500">{{ form.non_field_errors|striptags }}</p>
     {% endif %}
 
-    <button type="submit" class="w-full bg-brand-500 hover:bg-brand-600 text-white px-4 py-2.5 rounded-lg text-sm font-medium transition-colors">
+    <button type="submit" class="shadow-[3px_6px_12px_-7px_#FF2D8E] w-full bg-brand-500 hover:bg-brand-600 text-white px-4 py-2.5 rounded-sm text-sm font-medium transition-colors">
         Entrar
     </button>
 </form>
@@ -30,4 +48,5 @@
         ¿Olvidaste tu contraseña?
     </a>
 </div>
+
 {% endblock %}

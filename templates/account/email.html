@@ -1,0 +1,92 @@
+{% extends "dashboard/base_dashboard.html" %}
+{% load static %}
+{% block title %}Direcciones de correo{% endblock %}
+{% block page_title %}Direcciones de correo{% endblock %}
+
+{% block content %}
+<div class="max-w-2xl space-y-6">
+
+    {% if emailaddresses %}
+    <div class="bg-surface-white rounded-lg shadow-sm p-6">
+        <p class="text-sm text-gray-600 mb-4">Estas direcciones están asociadas a tu cuenta:</p>
+
+        <form method="post" action="{% url 'account_email' %}">
+            {% csrf_token %}
+
+            <div class="space-y-3 mb-6">
+                {% for radio in emailaddress_radios %}
+                    {% with emailaddress=radio.emailaddress %}
+                    <label class="flex items-center gap-3 text-sm text-dark cursor-pointer">
+                        <input type="radio" name="email" value="{{ emailaddress.email }}"
+                               {% if radio.checked %}checked{% endif %}
+                               class="h-4 w-4 text-brand-500 border-gray-300 focus:ring-brand-500">
+                        <span>{{ emailaddress.email }}</span>
+                        {% if emailaddress.verified %}
+                            <span class="px-2 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-700">Verificado</span>
+                        {% else %}
+                            <span class="px-2 py-0.5 rounded-full text-xs font-medium bg-yellow-100 text-yellow-700">Sin verificar</span>
+                        {% endif %}
+                        {% if emailaddress.primary %}
+                            <span class="px-2 py-0.5 rounded-full text-xs font-medium bg-brand-50 text-brand-700">Principal</span>
+                        {% endif %}
+                    </label>
+                    {% endwith %}
+                {% endfor %}
+            </div>
+
+            <div class="flex flex-wrap gap-2 pt-4 border-t border-gray-100">
+                <button type="submit" name="action_primary"
+                        class="bg-brand-500 hover:bg-brand-600 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors">
+                    Hacer principal
+                </button>
+                <button type="submit" name="action_send"
+                        class="px-4 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-100 transition-colors">
+                    Reenviar verificación
+                </button>
+                <button type="submit" name="action_remove" id="email-remove-btn"
+                        class="px-4 py-2 rounded-lg text-sm font-medium text-red-500 hover:bg-red-50 transition-colors">
+                    Eliminar
+                </button>
+            </div>
+        </form>
+    </div>
+    {% else %}
+    <div class="bg-yellow-50 text-yellow-700 text-sm rounded-lg p-4">
+        No tienes ninguna dirección de correo verificada. Deberías agregar una y verificarla.
+    </div>
+    {% endif %}
+
+    {% if can_add_email %}
+    <div class="bg-surface-white rounded-lg shadow-sm p-6">
+        <h2 class="text-sm font-semibold text-dark mb-4">Añadir dirección de correo</h2>
+        <form method="post" action="{% url 'account_email' %}" class="flex gap-3">
+            {% csrf_token %}
+            {% for field in form %}
+                <div class="flex-1">
+                    {{ field }}
+                    {% if field.errors %}<p class="text-xs text-red-500 mt-1">{{ field.errors|striptags }}</p>{% endif %}
+                </div>
+            {% endfor %}
+            <button type="submit" name="action_add"
+                    class="bg-brand-500 hover:bg-brand-600 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors whitespace-nowrap">
+                Añadir correo
+            </button>
+        </form>
+    </div>
+    {% endif %}
+
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const removeBtn = document.getElementById('email-remove-btn');
+    if (removeBtn) {
+        removeBtn.addEventListener('click', function (e) {
+            if (!confirm('¿Realmente quieres eliminar la dirección de correo seleccionada?')) {
+                e.preventDefault();
+            }
+        });
+    }
+});
+</script>
+{% endblock %}

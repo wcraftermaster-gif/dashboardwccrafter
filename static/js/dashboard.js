@@ -1,11 +1,8 @@
-document.addEventListener('DOMContentLoaded', function () {
+    document.addEventListener('DOMContentLoaded', function () {
     const sidebar = document.getElementById('sidebar');
     const labels = document.querySelectorAll('.sidebar-label');
     const collapseToggle = document.getElementById('sidebar-collapse-toggle');
     const collapseIcon = document.getElementById('collapse-icon');
-    const blogSubmenu = document.getElementById('blog-submenu');
-    const blogMenuToggle = document.getElementById('blog-menu-toggle');
-    const blogChevron = document.getElementById('blog-menu-chevron');
     const sidebarLogo = document.getElementById('sidebar-logo');
 
     function applyCollapsed(collapsed) {
@@ -13,11 +10,10 @@ document.addEventListener('DOMContentLoaded', function () {
             sidebar.classList.remove('w-45');
             sidebar.classList.add('w-10');
             labels.forEach(el => el.classList.add('hidden'));
-            blogSubmenu.classList.add('hidden');
+            document.querySelectorAll('[id$="-submenu"]').forEach(el => el.classList.add('hidden'));
             collapseIcon.style.transform = 'rotate(180deg)';
             sidebarLogo.classList.remove('w-11', 'h-11');
             sidebarLogo.classList.add('w-7', 'h-7');
-
         } else {
             sidebar.classList.remove('w-10');
             sidebar.classList.add('w-45');
@@ -38,9 +34,21 @@ document.addEventListener('DOMContentLoaded', function () {
         localStorage.setItem('sidebar_collapsed', next);
     });
 
-    blogMenuToggle.addEventListener('click', function () {
-        if (sidebar.classList.contains('w-10')) return;
-        blogSubmenu.classList.toggle('hidden');
-        blogChevron.style.transform = blogSubmenu.classList.contains('hidden') ? 'rotate(-90deg)' : 'rotate(0deg)';
-    });
+    function bindSubmenuToggle(toggleId, submenuId, chevronId) {
+        const toggle = document.getElementById(toggleId);
+        const submenu = document.getElementById(submenuId);
+        const chevron = document.getElementById(chevronId);
+        if (!toggle || !submenu) return;
+
+        toggle.addEventListener('click', function () {
+            if (sidebar.classList.contains('w-10')) return;
+            submenu.classList.toggle('hidden');
+            if (chevron) {
+                chevron.style.transform = submenu.classList.contains('hidden') ? 'rotate(-90deg)' : 'rotate(0deg)';
+            }
+        });
+    }
+
+    bindSubmenuToggle('blog-menu-toggle', 'blog-submenu', 'blog-menu-chevron');
+    bindSubmenuToggle('users-menu-toggle', 'users-submenu', 'users-menu-chevron');
 });

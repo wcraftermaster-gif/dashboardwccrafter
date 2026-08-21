@@ -1,0 +1,20 @@
+{% extends "dashboard/base_dashboard.html" %}
+{% block title %}Desactivar autenticador{% endblock %}
+{% block page_title %}Desactivar aplicación de autenticación{% endblock %}
+
+{% block content %}
+<div class="bg-surface-white rounded-lg shadow-sm p-8 max-w-lg">
+    <p class="text-sm text-gray-600 mb-6">
+        Estás a punto de desactivar la autenticación mediante aplicación. Tu cuenta quedará protegida solo por tu contraseña. ¿Estás seguro?
+    </p>
+    <form method="post" class="flex gap-3">
+        {% csrf_token %}
+        <button type="submit" class="bg-red-500 hover:bg-red-600 text-white px-5 py-2.5 rounded-lg text-sm font-medium transition-colors">
+            Desactivar
+        </button>
+        <a href="{% url 'mfa_index' %}" class="px-5 py-2.5 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-100 transition-colors">
+            Cancelar
+        </a>
+    </form>
+</div>
+{% endblock %}

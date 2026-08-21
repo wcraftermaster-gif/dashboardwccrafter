@@ -8,6 +8,10 @@ from django.contrib.auth.models import Group
 from django.contrib.auth.password_validation import validate_password
 from django.core.exceptions import ValidationError
 
+from allauth.account.forms import LoginForm, ResetPasswordForm, ReauthenticateForm
+from allauth.mfa.base.forms import AuthenticateForm
+
+
 
 User = get_user_model()
 
@@ -18,6 +22,11 @@ INPUT_CLASSES = (
     'w-full px-3.5 py-2.5 border border-gray-300 bg-white text-sm text-dark '
     'placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-brand-500 '
     'focus:border-brand-500 transition-colors'
+)
+AUTH_INPUT_CLASSES = (
+    'w-full px-3 py-2 border-b border-brand-600 text-sm text-white '
+    'placeholder-gray-500 focus:outline-none focus:ring-1 '
+    'focus:ring-brand-500 focus:border-brand-500 transition-colors'
 )
 
 ALLOWED_TAGS = [
@@ -45,13 +54,14 @@ class UserCreateForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = ['username', 'email', 'first_name', 'last_name', 'is_staff', 'is_active', 'groups']
+        fields = ['username', 'email', 'first_name', 'last_name', 'is_staff', 'is_superuser', 'is_active', 'groups']
         widgets = {
             'username': forms.TextInput(attrs={'class': INPUT_CLASSES}),
             'email': forms.EmailInput(attrs={'class': INPUT_CLASSES}),
             'first_name': forms.TextInput(attrs={'class': INPUT_CLASSES}),
             'last_name': forms.TextInput(attrs={'class': INPUT_CLASSES}),
             'is_staff': forms.CheckboxInput(attrs={'class': CHECKBOX_CLASS}),
+            'is_superuser': forms.CheckboxInput(attrs={'class': CHECKBOX_CLASS}),
             'is_active': forms.CheckboxInput(attrs={'class': CHECKBOX_CLASS}),
         }
 
@@ -84,13 +94,14 @@ class UserUpdateForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = ['username', 'email', 'first_name', 'last_name', 'is_staff', 'is_active', 'groups']
+        fields = ['username', 'email', 'first_name', 'last_name', 'is_staff', 'is_superuser', 'is_active', 'groups']
         widgets = {
             'username': forms.TextInput(attrs={'class': INPUT_CLASSES}),
             'email': forms.EmailInput(attrs={'class': INPUT_CLASSES}),
             'first_name': forms.TextInput(attrs={'class': INPUT_CLASSES}),
             'last_name': forms.TextInput(attrs={'class': INPUT_CLASSES}),
             'is_staff': forms.CheckboxInput(attrs={'class': CHECKBOX_CLASS}),
+            'is_superuser': forms.CheckboxInput(attrs={'class': CHECKBOX_CLASS}),
             'is_active': forms.CheckboxInput(attrs={'class': CHECKBOX_CLASS}),
         }
 
@@ -220,3 +231,64 @@ class TagForm(forms.ModelForm):
         widgets = {
             'name': forms.TextInput(attrs={'class': INPUT_CLASSES, 'placeholder': 'Nombre de la etiqueta'}),
         }
+
+class ProfileForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ['username', 'email', 'first_name', 'last_name', 'bio', 'avatar', 'website_url']
+        widgets = {
+            'username': forms.TextInput(attrs={'class': INPUT_CLASSES}),
+            'email': forms.EmailInput(attrs={'class': INPUT_CLASSES}),
+            'first_name': forms.TextInput(attrs={'class': INPUT_CLASSES}),
+            'last_name': forms.TextInput(attrs={'class': INPUT_CLASSES}),
+            'bio': forms.Textarea(attrs={'class': INPUT_CLASSES, 'rows': 3}),
+            'avatar': StyledClearableFileInput(attrs={'id': 'id_avatar', 'class': 'hidden'}),
+            'website_url': forms.URLInput(attrs={'class': INPUT_CLASSES}),
+        }
+
+class CustomLoginForm(LoginForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        self.fields['login'].widget.attrs.update({
+            'class': AUTH_INPUT_CLASSES,
+            'placeholder': 'Escriba su correo electrónico',
+        })
+
+        self.fields['password'].widget.attrs.update({
+            'class': AUTH_INPUT_CLASSES,
+            'placeholder': 'Escriba su contraseña',
+        })
+
+        self.fields['remember'].widget.attrs.update({
+            'class': 'h-3.5 w-3.5 rounded border-white/20 bg-dark-800 text-brand-500 focus:ring-brand-500',
+        })
+
+class CustomResetPasswordForm(ResetPasswordForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        self.fields['email'].widget.attrs.update({
+            'class': AUTH_INPUT_CLASSES,
+            'placeholder': 'Escribe tu correo electrónico',
+        })
+
+class CustomReauthenticateForm(ReauthenticateForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['password'].widget.attrs.update({
+            'class': AUTH_INPUT_CLASSES,
+            'placeholder': 'Tu contraseña actual',
+        })
+
+class CustomMFAAuthenticateForm(AuthenticateForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['code'].widget.attrs.update({
+            'class': AUTH_INPUT_CLASSES,
+            'placeholder': 'Código de 6 dígitos',
+            'autocomplete': 'one-time-code',
+            'inputmode': 'numeric',
+            'pattern': '[0-9]*',
+            'maxlength': '6',
+        })

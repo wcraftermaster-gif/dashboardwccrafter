@@ -303,3 +303,14 @@ if DEBUG:
     CKEDITOR_5_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
 else:
     CKEDITOR_5_FILE_STORAGE = 'storages.backends.s3.S3Storage'
+
+ACCOUNT_FORMS = {
+    'login': 'dashboard.forms.CustomLoginForm',
+    'reset_password': 'dashboard.forms.CustomResetPasswordForm',
+    'reauthenticate': 'dashboard.forms.CustomReauthenticateForm',
+}
+
+
+MFA_FORMS = {
+    'authenticate': 'dashboard.forms.CustomMFAAuthenticateForm',
+}

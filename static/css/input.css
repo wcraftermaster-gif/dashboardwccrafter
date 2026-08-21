@@ -1,8 +1,10 @@
 @import "tailwindcss";
 
 @theme {
-  /* Fondo oscuro (sidebar, headers, secciones oscuras) */
+  /* Fondo oscuro (sidebar, headers, secciones oscuras)
   --color-dark: #0D0D26;
+  */
+  --color-dark: #1e0c23;
   --color-dark-800: #15152F;
   --color-dark-700: #1D1D3A;
 
@@ -28,4 +30,73 @@
 
 .ck-word-count {
   padding: 8px 12px;
+}
+
+
+.allauth-content h1 {
+  @apply text-xl font-semibold text-dark mb-4;
+}
+.allauth-content h2 {
+  @apply text-sm font-semibold text-dark mb-3 mt-6;
+}
+.allauth-content p {
+  @apply text-sm text-gray-600 mb-4;
+}
+.allauth-content hr {
+  @apply border-gray-100 my-6;
+}
+.allauth-content label {
+  @apply block text-sm font-medium text-dark mb-1.5;
+}
+.allauth-content input[type="text"],
+.allauth-content input[type="email"],
+.allauth-content input[type="password"],
+.allauth-content input[type="url"],
+.allauth-content textarea {
+  @apply w-full px-3.5 py-2.5 rounded-lg border border-gray-300 bg-white text-sm text-dark
+         placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-brand-500
+         focus:border-brand-500 transition-colors mb-1;
+}
+.allauth-content input[type="checkbox"],
+.allauth-content input[type="radio"] {
+  @apply h-4 w-4 text-brand-500 border-gray-300 focus:ring-brand-500 mr-2;
+}
+.allauth-content button[type="submit"],
+.allauth-content a.allauth-button {
+  @apply inline-block bg-brand-500 hover:bg-brand-600 text-white px-4 py-2.5 rounded-lg text-sm font-medium transition-colors;
+}
+.allauth-content strong {
+  @apply px-2 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-600;
+}
+.allauth-content table {
+  @apply w-full text-sm;
+}
+.allauth-content th {
+  @apply text-left text-gray-500 font-medium px-3 py-2 border-b border-gray-200;
+}
+.allauth-content td {
+  @apply px-3 py-2 border-b border-gray-100;
+}
+
+.allauth-content-dark h1 {
+  @apply text-white;
+}
+.allauth-content-dark p {
+  @apply text-gray-300;
+}
+.allauth-content-dark label {
+  @apply text-gray-200;
+}
+.allauth-content-dark input[type="text"],
+.allauth-content-dark input[type="email"],
+.allauth-content-dark input[type="password"],
+.allauth-content-dark input[type="url"],
+.allauth-content-dark textarea {
+  @apply bg-dark-800 border-white/10 text-white placeholder-gray-500;
+}
+.allauth-content-dark hr {
+  @apply border-white/10;
+}
+.allauth-content-dark strong {
+  @apply bg-white/10 text-gray-200;
 }

@@ -196,5 +196,16 @@ updateSeoChecklist();
     });
 
     renderChips()
-
+// --- Auto-sugerir estado "Programado" al elegir fecha futura ---
+const scheduledInput = document.getElementById('id_scheduled_at');
+const statusSelect = document.getElementById('id_status');
+if (scheduledInput && statusSelect) {
+    scheduledInput.addEventListener('change', function () {
+        if (!scheduledInput.value) return;
+        const chosen = new Date(scheduledInput.value);
+        if (chosen > new Date()) {
+            statusSelect.value = 'scheduled';
+        }
+    });
+}
 });
