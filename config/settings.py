@@ -18,6 +18,8 @@ ALLOWED_HOSTS = env.list('ALLOWED_HOSTS', default=['localhost', '127.0.0.1'])
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 USE_X_FORWARDED_HOST = True
 
+CRON_SECRET = env('CRON_SECRET', default='lEmdgLsXB5SlaPXI6')
+
 INSTALLED_APPS = [
     'unfold',
     'django.contrib.admin',
