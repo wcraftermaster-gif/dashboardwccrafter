@@ -103,12 +103,14 @@ class DashboardHomeView(StaffRequiredMixin, TemplateView):
             'user', 'content_type'
         ).order_by('-action_time')[:5]
 
-        # Logs de Axes (intentos de login)
+        # Logs de Axes: accesos correctos (AccessLog) y fallidos (AccessAttempt)
         try:
-            from axes.models import AccessLog
+            from axes.models import AccessLog, AccessAttempt
             context['axes_logs'] = AccessLog.objects.order_by('-attempt_time')[:5]
+            context['axes_failed'] = AccessAttempt.objects.order_by('-attempt_time')[:5]
         except ImportError:
             context['axes_logs'] = []
+            context['axes_failed'] = []
 
         from django.utils import timezone
 

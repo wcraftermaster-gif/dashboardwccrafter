@@ -15,7 +15,7 @@
         <div class="col-span-2 space-y-6">
 
            <!-- Título -->
-<div class="bg-surface-white shadow-sm p-2 my-0">
+<div class="bg-surface-white shadow-md p-2 my-0 rounded-sm">
     {{ form.title }}
     {% if form.title.errors %}
         <p class="text-xs text-red-500">{{ form.title.errors|striptags }}</p>
@@ -24,8 +24,8 @@
 
 <!-- Enlace permanente -->
 <div>
-    <div id="permalink-display" class="flex items-center text-sm text-gray-500 mt-2">
-        <span>Enlace permanente:</span>
+    <div id="permalink-display" class="flex items-center text-sm text-gray-500 mt-2 -mb-3">
+        <span class="mr-1">Enlace permanente:</span>
         <span class="text-gray-600">https://{{ request.get_host }}/blog/</span>
         <span id="slug-preview" class="text-brand-600 font-medium">{{ form.instance.slug|default:"se-generara-del-titulo" }}</span>
         <span class="text-gray-600">/</span>
@@ -33,8 +33,7 @@
             Editar
         </button>
     </div>
-
-    <div id="permalink-edit" class="hidden items-center mt-3 ">
+    <div id="permalink-edit" class="hidden items-center mt-0 ">
         <span class="text-sm text-gray-500">https://{{ request.get_host }}/blog/</span>
         {{ form.slug }}
         <span class="text-sm text-gray-500 ">/</span>
@@ -51,7 +50,7 @@
 </div>
 
             <!-- Contenido -->
-            <div class="bg-surface-white shadow-sm p-0">
+            <div class="bg-surface-white shadow-md p-2 rounded-sm">
                 {{ form.content }}
                 {% if form.content.errors %}
                     <p class="text-xs text-red-500 mt-1">{{ form.content.errors|striptags }}</p>
@@ -59,7 +58,7 @@
             </div>
 
             <!-- Panel SEO estilo Yoast (antes del extracto) -->
-            <div class="bg-surface-white shadow-sm overflow-hidden ">
+            <div class="bg-surface-white shadow-md overflow-hidden rounded-sm ">
                 <button type="button" id="seo-panel-toggle"
                         class="w-full flex justify-between items-center px-6 py-4 text-left">
                     <span class="text-sm font-semibold text-dark ">SEO</span>
@@ -118,7 +117,7 @@
             </div>
 
             <!-- Extracto -->
-            <div class="bg-surface-white shadow-sm p-6">
+            <div class="bg-surface-white shadow-md p-6 rounded-sm">
                 <label for="{{ form.excerpt.id_for_label }}" class="block text-sm font-medium text-dark mb-1.5">
                     Extracto
                 </label>
@@ -135,7 +134,7 @@
         <div class="col-span-1 space-y-6">
 
             <!-- Caja de publicación -->
-            <div class="bg-surface-white  shadow-sm p-5 space-y-4">
+            <div class="bg-surface-white  shadow-md p-5 space-y-4 rounded-md">
                 <h3 class="text-sm font-semibold text-dark">Publicación</h3>
 
                 <div>
@@ -161,7 +160,7 @@
             </div>
 
            <!-- Imagen destacada -->
-<div class="bg-surface-white  shadow-sm p-5">
+<div class="bg-surface-white  shadow-md p-5 rounded-md">
     <h3 class="text-sm font-semibold text-dark mb-3">Imagen destacada</h3>
 
     <div id="featured-image-preview-wrapper" class="{% if not object.featured_image %}hidden{% endif %} mb-3">
@@ -196,7 +195,7 @@
 </div>
 
             <!-- Categoría -->
-            <div class="bg-surface-white shadow-sm p-5">
+            <div class="bg-surface-white shadow-md p-5 rounded-md">
                 <h3 class="text-sm font-semibold text-dark mb-3">Categoría</h3>
                 <div id="category-list" class="max-h-40 overflow-y-auto space-y-1.5 mb-3">
                     {% for cat in categories %}
@@ -222,7 +221,7 @@
             </div>
 
             <!-- Etiquetas estilo (chips) -->
-            <div class="bg-surface-white shadow-sm p-5">
+            <div class="bg-surface-white shadow-md p-5 rounded-md">
                 <h3 class="text-sm font-semibold text-dark mb-3">Etiquetas</h3>
                 <div id="tags-chip-container" class="flex flex-wrap gap-1.5 mb-2"></div>
                 <input type="text" id="tags-text-input" placeholder="Escribe y presiona Enter"

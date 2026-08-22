@@ -131,7 +131,7 @@
             <span class="sidebar-label whitespace-nowrap">Colapsar</span>
         </button>
 
-        <form method="post" action=" url 'account_logout' %}">
+        <form method="post" action="{% url 'account_logout' %}">
             {% csrf_token %}
             <button type="submit" class="w-full flex items-center gap-1 px-1.5 py-1 rounded-sm text-sm text-gray-300 hover:bg-dark-700 hover:text-white transition-colors">
                 <svg class="w-3.5 h-3.5 shrink-0 text-brand-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">

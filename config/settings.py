@@ -65,7 +65,7 @@ AUTHENTICATION_BACKENDS = [
 
 
 
-ACCOUNT_LOGIN_METHODS = {'email'}
+ACCOUNT_LOGIN_METHODS = {'username', 'email'}
 ACCOUNT_SIGNUP_ENABLED = False
 ACCOUNT_SIGNUP_FIELDS = ['email*', 'username*', 'password1*', 'password2*']
 ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
@@ -82,6 +82,17 @@ LOGOUT_REDIRECT_URL = 'core:home'
 AXES_FAILURE_LIMIT = 5
 AXES_COOLOFF_TIME = 1  # horas de bloqueo tras exceder el limite
 AXES_LOCKOUT_PARAMETERS = ['username', 'ip_address']
+
+
+def axes_get_username(request, credentials):
+    """Extrae el identificador (usuario o email) del campo 'login' para axes."""
+    if credentials and 'login' in credentials:
+        return credentials['login']
+    if request and request.POST and 'login' in request.POST:
+        return request.POST['login']
+    return credentials.get('username') if credentials else None
+
+AXES_USERNAME_CALLABLE = 'config.settings.axes_get_username'
 
 SESSION_COOKIE_AGE = 60 * 60 * 4  # 4 horas
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
