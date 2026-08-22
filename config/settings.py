@@ -94,6 +94,17 @@ def axes_get_username(request, credentials):
 
 AXES_USERNAME_CALLABLE = 'config.settings.axes_get_username'
 
+def get_client_ip(request):
+    """IP real del cliente detrás del proxy (Render/Cloudflare)."""
+    xff = request.META.get('HTTP_X_FORWARDED_FOR')
+    if xff:
+        return xff.split(',')[0].strip()  # el primer valor es el cliente original
+    return request.META.get('REMOTE_ADDR')
+
+
+AXES_CLIENT_IP_CALLABLE = 'config.settings.get_client_ip'
+
+
 SESSION_COOKIE_AGE = 60 * 60 * 4  # 4 horas
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 SESSION_COOKIE_HTTPONLY = True
