@@ -100,3 +100,115 @@
 .allauth-content-dark strong {
   @apply bg-white/10 text-gray-200;
 }
+
+.no-scrollbar {
+  scrollbar-width: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* CARRUSEL — Degradado únicamente en el extremo derecho */
+.carousel-track {
+    overflow: hidden;
+
+    -webkit-mask-image: linear-gradient(
+        to right,
+        #000 0%,
+        #000 96%,
+        rgba(0, 0, 0, 0.75) 99%,
+        transparent 100%
+    );
+
+    mask-image: linear-gradient(
+        to right,
+        #000 0%,
+        #000 96%,
+        rgba(0, 0, 0, 0.75) 99%,
+        transparent 100%
+    );
+}
+
+/* TARJETAS — Sin escalas adicionales */
+.carousel-item {
+    transform-origin: center center;
+
+    transition: opacity 0 ease;
+}
+
+/* Mantener la imagen principal completamente visible */
+.carousel-item.is-active {
+    opacity: 1;
+}
+
+/* Profundidad visual sutil, sin apagar demasiado las capturas */
+.carousel-item.is-adjacent {
+    opacity: 0.77;
+}
+
+.carousel-item.is-distant {
+    opacity: 0.74;
+}
+
+.carousel-item.is-far {
+    opacity: 0.71;
+}
+
+/* IMÁGENES — Renderizado estándar del navegador */
+.carousel-item img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    image-rendering: auto;
+}
+
+/* Accesibilidad */
+@media (prefers-reduced-motion: reduce) {
+    .carousel-item {
+        transition: none !important;
+}
+}
+
+
+/* Carrusel continuo de proyectos */
+.marquee {
+  overflow: hidden;
+  padding-block: 2rem; /* espacio para que no se corte la sombra */
+
+}
+.marquee-track {
+  display: flex;
+  width: max-content;
+}
+.marquee-group {
+  display: flex;
+  flex-shrink: 0;
+  gap: 1.5rem;
+  padding-right: 1.5rem; /* mismo espacio en la unión entre copias */
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .is-running .marquee-track {
+    animation: marquee-scroll var(--marquee-duration, 60s) linear infinite;
+  }
+  .is-running .marquee:hover .marquee-track,
+  .is-running .marquee:focus-within .marquee-track,
+  .is-running.is-paused .marquee-track {
+    animation-play-state: paused;
+  }
+}
+
+/* Con "reducir movimiento" no hay animación: se desplaza a mano */
+@media (prefers-reduced-motion: reduce) {
+  .marquee {
+    overflow-x: auto;
+  }
+}
+
+@keyframes marquee-scroll {
+  to {
+    transform: translateX(var(--marquee-shift, -50%));
+  }
+}
+
+
