@@ -1,500 +1,403 @@
 {% extends "base.html" %}
 {% load static %}
+
 {% block title %}Inicio{% endblock %}
-{% block meta_description %}Diseño y desarrollo web que impulsa tu negocio. Soluciones digitales a la medida.{% endblock %}
+{% block meta_description %}Desarrollo WordPress a medida. Sitios rápidos, seguros y escalables.{% endblock %}
+
 {% block content %}
 
-<!-- Hero Section -->
+<!-- Hero Section con cuadrícula y puntos interactivos -->
+<section id="inicio" aria-labelledby="hero-title" class="relative flex min-h-[75svh] items-center overflow-hidden bg-black pt-16">
 
-<section id="inicio" aria-labelledby="hero-title"
-         class="relative flex min-h-[75svh] items-center overflow-hidden bg-black pt-16">
+    <!-- Cuadrícula magenta -->
+    <div aria-hidden="true" class="absolute inset-0">
+        <div class="grid-overlay"></div>
+    </div>
 
-    <!-- Resplandores de fondo (decorativos) -->
-    <div aria-hidden="true"
-         class="pointer-events-none absolute right-0 top-1/4 h-96 w-96 rounded-full bg-black blur-3xl"></div>
-    <div aria-hidden="true"
-         class="pointer-events-none absolute bottom-0 left-0 h-96 w-96 rounded-full bg-black blur-3xl"></div>
+    <!-- Puntos estáticos de fondo -->
+    <div aria-hidden="true" class="dots-static"></div>
 
-<div class="mx-auto max-w-2xl text-center">
-        <div class="max-w-lg">
+    <!-- Puntos interactivos -->
+    <div aria-hidden="true" class="dots-interactive"></div>
+
+    <div class="mx-auto max-w-2xl text-center px-4 relative z-10">
+        <div class="max-w-lg mx-auto">
             <p class="mb-4 text-xs font-semibold uppercase tracking-[0.3em] text-brand-600">
-                Desarrollo web de alto impacto
+                Desarrollo WordPress
             </p>
 
-            <h1 id="hero-title"
-                class="mb-5 text-3xl font-bold leading-[1.1] tracking-tight text-white text-balance lg:text-4xl">
-                Creamos experiencias digitales que
-                <span class="text-brand-600">impulsan negocios</span>
+            <h1 id="hero-title" class="mb-5 text-3xl font-bold leading-[1.1] tracking-tight text-white text-balance lg:text-4xl">
+                Sitios que cargan en menos de un segundo y
+                <span class="text-brand-600">convierten visitas</span>
             </h1>
 
-    <p class="mx-auto mb-8 max-w-md text-sm leading-relaxed text-white sm:text-base">
-                Diseñamos y desarrollamos sitios web, aplicaciones y herramientas
-                digitales a medida, enfocadas en resultados reales.
+            <p class="mx-auto mb-8 max-w-md text-sm leading-relaxed text-gray-300 sm:text-base">
+                Diseño y desarrollo de sitios web con Elementor.
+                Rápidos, editables y listos para vender.
             </p>
 
-    <div class="flex flex-col items-center justify-center gap-4 sm:flex-row">
-                <a href="#proyectos"
-                   class="uppercase tracking-[0.1em] inline-flex items-center justify-center gap-2 rounded-2xl bg-brand-500 px-7 py-3.5 text-[10px] font-semibold text-white transition-colors hover:bg-brand-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2 focus-visible:ring-offset-dark">
+            <div class="flex flex-col items-center justify-center gap-4 sm:flex-row">
+                <a href="#proyectos" class="uppercase tracking-[0.1em] inline-flex items-center justify-center gap-2 rounded-2xl bg-brand-500 px-7 py-3.5 text-[10px] font-semibold text-white transition-colors hover:bg-brand-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2 focus-visible:ring-offset-black">
                     Ver proyectos
                     <svg aria-hidden="true" class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
                     </svg>
                 </a>
-                <a href="#contacto"
-                   class="uppercase tracking-[0.1em] inline-flex items-center justify-center rounded-2xl border border-brand-700 px-7 py-3.5 text-[10px] font-semibold text-white transition-colors hover:bg-brand-500/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2 focus-visible:ring-offset-dark">
+                <a href="#contacto" class="uppercase tracking-[0.1em] inline-flex items-center justify-center rounded-2xl border border-brand-700 px-7 py-3.5 text-[10px] font-semibold text-white transition-colors hover:bg-brand-500/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2 focus-visible:ring-offset-black">
                     Solicitar propuesta
                 </a>
             </div>
         </div>
     </div>
 </section>
-
-
-<!-- Carrusel de proyectos -->
-<section id="proyectos" aria-labelledby="proyectos-title" data-marquee
-         class="py-8 relative overflow-hidden bg-white">
-    <h2 id="proyectos-title" class="sr-only">Proyectos destacados</h2>
+<!-- Carrusel de proyectos (sin cambios) -->
+<section id="proyectos-carrusel" aria-labelledby="carrusel-title" data-marquee class="py-8 relative overflow-hidden bg-white">
+    <h2 id="carrusel-title" class="sr-only">Proyectos en movimiento</h2>
 
     <div class="marquee">
         <div class="marquee-track" data-marquee-track>
-            <ul class="marquee-group" role="list" data-marquee-group>
-
+            <ul class="marquee-group flex gap-6" role="list" data-marquee-group>
                 <li class="w-44 shrink-0 sm:w-52 lg:w-56">
-                    <article class="overflow-hidden rounded-xl bg-white shadow-[0_10px_25px_-10px] shadow-dark ring-1 ring-black/5 transition-shadow hover:shadow-[0_20px_50px_-15px_rgba(255,45,142,0.6)]">
+                    <article class="overflow-hidden rounded-xl bg-white shadow-lg shadow-black/5 ring-1 ring-black/5 transition-shadow hover:shadow-xl hover:shadow-black/10">
                         <div class="aspect-[2/3] overflow-hidden bg-gray-100">
-                            <img src="{% static 'img/projects/giovanazzi.webp' %}"
-                                 alt="Captura del sitio web de Verycook"
-                                 width="448" height="672" loading="lazy" decoding="async"
-                                 class="block h-full w-full object-cover object-top">
+                            <img src="{% static 'img/projects/giovanazzi.webp' %}" alt="Sitio web Giovanazzi" width="448" height="672" loading="lazy" decoding="async" class="block h-full w-full object-cover object-top">
                         </div>
                     </article>
                 </li>
-
                 <li class="w-44 shrink-0 sm:w-52 lg:w-56">
-                    <article class="overflow-hidden rounded-xl bg-white shadow-[0_10px_25px_-10px] shadow-dark ring-1 ring-black/5 transition-shadow hover:shadow-[0_20px_50px_-15px_rgba(255,45,142,0.6)]">
+                    <article class="overflow-hidden rounded-xl bg-white shadow-lg shadow-black/5 ring-1 ring-black/5 transition-shadow hover:shadow-xl hover:shadow-black/10">
                         <div class="aspect-[2/3] overflow-hidden bg-gray-100">
-                            <img src="{% static 'img/projects/verycook.webp' %}"
-                                 alt="Captura del sitio web de Verycook"
-                                 width="448" height="672" loading="lazy" decoding="async"
-                                 class="block h-full w-full object-cover object-top">
+                            <img src="{% static 'img/projects/verycook.webp' %}" alt="Sitio web Verycook" width="448" height="672" loading="lazy" decoding="async" class="block h-full w-full object-cover object-top">
                         </div>
                     </article>
                 </li>
-
                 <li class="w-44 shrink-0 sm:w-52 lg:w-56">
-                    <article class="overflow-hidden rounded-xl bg-white shadow-[0_10px_25px_-10px] shadow-dark ring-1 ring-black/5 transition-shadow hover:shadow-[0_20px_50px_-15px_rgba(255,45,142,0.6)]">
+                    <article class="overflow-hidden rounded-xl bg-white shadow-lg shadow-black/5 ring-1 ring-black/5 transition-shadow hover:shadow-xl hover:shadow-black/10">
                         <div class="aspect-[2/3] overflow-hidden bg-gray-100">
-                            <img src="{% static 'img/projects/cosvic.webp' %}"
-                                 alt="Captura del sitio web de Cosvic"
-                                 width="448" height="672" loading="lazy" decoding="async"
-                                 class="block h-full w-full object-cover object-top">
+                            <img src="{% static 'img/projects/cosvic.webp' %}" alt="Sitio web Cosvic" width="448" height="672" loading="lazy" decoding="async" class="block h-full w-full object-cover object-top">
                         </div>
                     </article>
                 </li>
-
                 <li class="w-44 shrink-0 sm:w-52 lg:w-56">
-                    <article class="overflow-hidden rounded-xl bg-white shadow-[0_10px_25px_-10px] shadow-dark ring-1 ring-black/5 transition-shadow hover:shadow-[0_20px_50px_-15px_rgba(255,45,142,0.6)]">
+                    <article class="overflow-hidden rounded-xl bg-white shadow-lg shadow-black/5 ring-1 ring-black/5 transition-shadow hover:shadow-xl hover:shadow-black/10">
                         <div class="aspect-[2/3] overflow-hidden bg-gray-100">
-                            <img src="{% static 'img/projects/monster-factory.webp' %}"
-                                 alt="Captura del sitio web de Monster Factory"
-                                 width="448" height="672" loading="lazy" decoding="async"
-                                 class="block h-full w-full object-cover object-top">
+                            <img src="{% static 'img/projects/monster-factory.webp' %}" alt="Sitio web Monster Factory" width="448" height="672" loading="lazy" decoding="async" class="block h-full w-full object-cover object-top">
                         </div>
                     </article>
                 </li>
-
                 <li class="w-44 shrink-0 sm:w-52 lg:w-56">
-                    <article class="overflow-hidden rounded-xl bg-white shadow-[0_10px_25px_-10px] shadow-dark ring-1 ring-black/5 transition-shadow hover:shadow-[0_20px_50px_-15px_rgba(255,45,142,0.6)]">
+                    <article class="overflow-hidden rounded-xl bg-white shadow-lg shadow-black/5 ring-1 ring-black/5 transition-shadow hover:shadow-xl hover:shadow-black/10">
                         <div class="aspect-[2/3] overflow-hidden bg-gray-100">
-                            <img src="{% static 'img/projects/kayser-pet-grooming.webp' %}"
-                                 alt="Captura del sitio web de Kayser Pet Grooming"
-                                 width="448" height="672" loading="lazy" decoding="async"
-                                 class="block h-full w-full object-cover object-top">
+                            <img src="{% static 'img/projects/kayser-pet-grooming.webp' %}" alt="Sitio web Kayser Pet Grooming" width="448" height="672" loading="lazy" decoding="async" class="block h-full w-full object-cover object-top">
                         </div>
                     </article>
                 </li>
-
             </ul>
         </div>
     </div>
 </section>
 
-<section>
-    <div class="py-16 bg-black text-center">
-        <h3 class="mb-5 text-3xl font-bold leading-[1.1] tracking-tight text-white text-balance lg:text-4xl">Diseños Impecables & Elegantes</h3>
-    </div>
-
-</section>
-{% comment %} <section id="inicio" aria-labelledby="hero-title"
-         class="relative flex min-h-[90svh] items-center overflow-hidden bg-black  pt-16 pl-20 ">
-
-    <!-- Resplandores de fondo (decorativos) -->
-    <div aria-hidden="true"
-         class="pointer-events-none absolute right-0 top-1/4 h-96 w-96 rounded-full bg-brand-500/20 blur-3xl"></div>
-    <div aria-hidden="true"
-         class="pointer-events-none absolute bottom-0 left-0 h-96 w-96 rounded-full bg-purple-600/10 blur-3xl"></div>
-
-    <div class=" relative mx-auto grid w-full max-w-7xl items-center gap-16 px-4 sm:px-6 lg:grid-cols-2 lg:px-8">
-
-        <!-- Texto (Izquierda) -->
-        <!-- Texto (Izquierda) -->
-<div class="max-w-lg ">
-    <p class="mb-4 text-xs font-semibold uppercase tracking-[0.3em] text-brand-600">
-        Desarrollo web de alto impacto
-    </p>
-
-    <h1 id="hero-title"
-        class="mb-5 text-1xl font-bold leading-[1.1] tracking-tight text-white text-balance sm:text-2xl lg:text-3xl">
-        Creamos experiencias digitales que
-        <span class="text-brand-600">impulsan negocios</span>
-    </h1>
-
-    <p class="mb-8 max-w-md text-sm leading-relaxed text-white sm:text-base">
-        Diseñamos y desarrollamos sitios web, aplicaciones y herramientas
-        digitales a medida, enfocadas en resultados reales.
-    </p>
-
-    <div class="flex flex-col gap-4 sm:flex-row ">
-        <a href="#proyectos"
-           class=" inline-flex items-center justify-center gap-2 rounded-2xl bg-brand-500 px-7 py-3.5 text-sm font-semibold text-white
-            transition-colors hover:bg-brand-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2 focus-visible:ring-offset-dark">
-            Ver proyectos
-            <svg aria-hidden="true" class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                      d="M17 8l4 4m0 0l-4 4m4-4H3"/>
-            </svg>
-        </a>
-        <a href="#contacto"
-           class="inline-flex items-center justify-center rounded-2xl border border-brand-700 px-7 py-3.5 text-sm font-semibold text-white transition-colors hover:bg-brand-500/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2 focus-visible:ring-offset-dark">
-            Solicitar propuesta
-        </a>
-    </div>
-</div>
-
-
-<div data-carousel
-     role="region"
-     aria-roledescription="carrusel"
-     aria-label="Proyectos destacados"
-     class="group relative min-w-0 px-12">
-
-    <!-- Botón anterior -->
-    <button type="button"
-            data-carousel-prev
-            aria-label="Proyecto anterior"
-            class="absolute left-0 top-1/2 z-20 flex h-10 w-10 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full  text-white backdrop-blur transition-all hover:scale-110 hover:border-brand-500 hover:text-brand-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500">
-        <svg aria-hidden="true" class="h-10 w-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M15 19l-7-7 7-7"/>
-        </svg>
-    </button>
-
-    <!--
-      Track: SIN overflow-x-auto, SIN snap, SIN no-scrollbar.
-      GSAP controla la posición con transforms.
-      El padding py-20 permite que las tarjetas rotadas no se recorten.
-    -->
-    <div data-carousel-track
-         tabindex="0"
-         aria-label="Contenido del carrusel"
-         class="carousel-track -mx-12 -my-20 flex items-start gap-4 px-12 py-20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500/60">
-
-        <!--
-          En Django, reemplaza este bloque por:
-
-          {% for proyecto in proyectos %}
-            <article data-carousel-item
-                     class="carousel-item w-40 shrink-0 overflow-hidden rounded-lg bg-white shadow-[0_15px_50px_rgba(151,0,69,0.55)] sm:w-44 lg:w-[calc((100%_-_2rem)/3)]">
-                <div class="aspect-[2/3] space-y-2 bg-linear-to-b from-gray-100 to-gray-300 p-3">
-                    <div class="h-2 w-1/3 rounded bg-gray-400"></div>
-                    <img src="{{ proyecto.imagen.url }}"
-                         alt="{{ proyecto.titulo }}"
-                         loading="lazy"
-                         decoding="async"
-                         class="h-24 w-full rounded object-cover">
-                    <p class="text-xs font-semibold text-gray-700">{{ proyecto.titulo }}</p>
-                </div>
-            </article>
-          {% endfor %}
-        -->
-
-
-
-
-
-<article data-carousel-item
-         class="carousel-item  shrink-0 overflow-hidden rounded-lg bg-white shadow-[0_13px_25px_-15px] shadow-brand-700 ring-1 ring-white/10 transition-shadow hover:shadow-[0_25px_70px_-15px_rgba(255,45,142,0.6)] sm:w-[350px] lg:w-[calc((100%_-_2rem)/2.6)]">
-
-    <div class="aspect-[2/3] overflow-hidden bg-gray-100">
-        <img src="{% static 'img/projects/giovanazzi.webp' %}"
-             alt="Proyecto Giovanazzi"
-             fetchpriority="high"
-             decoding="async"
-             class="block h-full w-full object-fill">
-    </div>
-
-</article>
-
-        <article data-carousel-item
-         class="carousel-item  shrink-0 overflow-hidden rounded-xl bg-white shadow-[0_10px_25px_-10px] shadow-brand-700 ring-1 ring-white/10 transition-shadow hover:shadow-[0_25px_70px_-15px_rgba(255,45,142,0.6)] sm:w-[350px] lg:w-[calc((100%_-_2rem)/2.6)]">
-
-    <div class="aspect-[2/3] overflow-hidden bg-gray-100">
-        <img src="{% static 'img/projects/verycook.webp' %}"
-             alt="Proyecto Giovanazzi"
-             fetchpriority="high"
-             decoding="async"
-             class="block h-full w-full object-fill">
-    </div>
-
-</article>
-
-        <article data-carousel-item
-         class="carousel-item  shrink-0 overflow-hidden rounded-xl bg-white shadow-[0_10px_25px_-10px] shadow-brand-700 ring-1 ring-white/10 transition-shadow hover:shadow-[0_25px_70px_-15px_rgba(255,45,142,0.6)] sm:w-[350px] lg:w-[calc((100%_-_2rem)/2.6)]">
-
-    <div class="aspect-[2/3] overflow-hidden bg-gray-100">
-        <img src="{% static 'img/projects/cosvic.webp' %}"
-             alt="Proyecto Giovanazzi"
-             fetchpriority="high"
-             decoding="async"
-             class="block h-full w-full object-fill">
-    </div>
-
-</article>
-
- <article data-carousel-item
-         class="carousel-item  shrink-0 overflow-hidden rounded-xl bg-white shadow-[0_10px_25px_-10px] shadow-brand-700 ring-1 ring-white/10 transition-shadow hover:shadow-[0_25px_70px_-15px_rgba(255,45,142,0.6)] sm:w-[350px] lg:w-[calc((100%_-_2rem)/2.6)]">
-
-    <div class="aspect-[2/3] overflow-hidden bg-gray-100">
-        <img src="{% static 'img/projects/monster-factory.webp' %}"
-             alt="Proyecto Giovanazzi"
-             fetchpriority="high"
-             decoding="async"
-             class="block h-full w-full object-fill">
-    </div>
-
-</article>
-
-        <article data-carousel-item
-         class="carousel-item  shrink-0 overflow-hidden rounded-xl bg-white shadow-[0_10px_25px_-10px] shadow-brand-700 ring-1 ring-white/10 transition-shadow hover:shadow-[0_25px_70px_-15px_rgba(255,45,142,0.6)] sm:w-[350px] lg:w-[calc((100%_-_2rem)/2.6)]">
-
-    <div class="aspect-[2/3] overflow-hidden bg-gray-100">
-        <img src="{% static 'img/projects/kayser-pet-grooming.webp' %}"
-             alt="Proyecto Giovanazzi"
-             fetchpriority="high"
-             decoding="async"
-             class="block h-full w-full object-fill">
-    </div>
-
-</article>
-
-
-
-
-
-
-
-
-    </div>
-
-    <!-- Botón siguiente -->
-    <button type="button"
-            data-carousel-next
-            aria-label="Proyecto siguiente"
-            class="absolute right-0 top-1/2 z-20 flex h-10 w-10 translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full  text-white backdrop-blur transition-all hover:scale-110 hover:border-brand-500 hover:text-brand-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500">
-        <svg aria-hidden="true" class="h-10 w-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M9 5l7 7-7 7"/>
-        </svg>
-    </button>
-</div>
-
-    </div>
-</section>{% endcomment %}
-
-<!-- Servicios Section -->
-<section id="servicios" class="py-20 bg-surface">
+<!-- Servicios WordPress (Exterior rounded, interior sin rounded) -->
+<section id="servicios" class="py-24 bg-gray-50">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center mb-16">
-            <p class="text-brand-500 font-semibold mb-2">SERVICIOS</p>
-            <h2 class="text-3xl md:text-4xl font-bold text-dark mb-4">Soluciones digitales a la medida</h2>
-            <p class="text-gray-500 max-w-2xl mx-auto">Ofrezco soluciones completas para llevar tu idea al siguiente nivel con enfoque en rendimiento, experiencia de usuario y escalabilidad.</p>
+        <div class="mb-16 max-w-2xl">
+            <p class="text-brand-600 font-semibold mb-2 uppercase tracking-wider text-xs">Servicios WordPress</p>
+            <h2 class="text-3xl md:text-4xl font-bold text-black">Qué hago con WordPress</h2>
+            <p class="mt-4 text-gray-600 text-sm leading-relaxed">
+                No instalo plantillas. Construyo sitios que cargan rápido y se mantienen solos.
+            </p>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             <!-- Servicio 1 -->
-            <div class="bg-white rounded-xl p-6 shadow-sm hover:shadow-xl transition-shadow border border-gray-100 group">
-                <div class="w-14 h-14 bg-brand-500/10 rounded-full flex items-center justify-center mb-4 group-hover:bg-brand-500 transition-colors">
-                    <svg class="w-7 h-7 text-brand-500 group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
-                    </svg>
+            <div class="relative rounded-xl border border-brand-500/30 p-[15px] bg-black">
+                <div class="h-full border border-brand-500/30 p-6 transition-all hover:border-brand-500/60">
+                    <div class="mb-4 flex h-12 w-12 items-center justify-center bg-brand-500/10">
+                        <svg class="h-6 w-6 text-brand-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-bold text-white mb-2">Temas personalizados</h3>
+                    <p class="text-sm text-gray-400 leading-relaxed">
+                        Diseño y desarrollo de temas desde cero. Sin page builders pesados.
+                        Código limpio que Google premia.
+                    </p>
                 </div>
-                <h3 class="text-lg font-semibold text-dark mb-2">Diseño Web</h3>
-                <p class="text-sm text-gray-500">Diseños modernos, limpios y centrados en la experiencia de usuario y la conversión.</p>
             </div>
 
             <!-- Servicio 2 -->
-            <div class="bg-white rounded-xl p-6 shadow-sm hover:shadow-xl transition-shadow border border-gray-100 group">
-                <div class="w-14 h-14 bg-brand-500/10 rounded-full flex items-center justify-center mb-4 group-hover:bg-brand-500 transition-colors">
-                    <svg class="w-7 h-7 text-brand-500 group-hover:text-white transition-colors" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M12 2C6.486 2 2 6.486 2 12s4.486 10 10 10 10-4.486 10-10S17.514 2 12 2zm-1.5 17.5c-1.5 0-2.5-.5-2.5-2 0-1 .5-2 1.5-3 .5-.5 1-1 1-2s-.5-1.5-1.5-1.5c-1 0-2 1-2 2.5 0 .5-.5 1-1 1s-1-.5-1-1c0-2.5 2-4.5 4.5-4.5 2 0 3.5 1.5 3.5 3.5 0 1.5-1 2.5-2 3.5-.5.5-1 1-1 2s.5 1.5 1.5 1.5c1 0 2-1 2-2.5 0-.5.5-1 1-1s1 .5 1 1c0 2.5-2 4.5-4.5 4.5z"/>
-                    </svg>
+            <div class="relative rounded-xl border border-brand-500/30 p-[15px] bg-black">
+                <div class="h-full border border-brand-500/30 p-6 transition-all hover:border-brand-500/60">
+                    <div class="mb-4 flex h-12 w-12 items-center justify-center bg-brand-500/10">
+                        <svg class="h-6 w-6 text-brand-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 4a2 2 0 114 0v1a1 1 0 001 1h3a1 1 0 011 1v3a1 1 0 01-1 1h-1a2 2 0 100 4h1a1 1 0 011 1v3a1 1 0 01-1 1h-3a1 1 0 01-1-1v-1a2 2 0 10-4 0v1a1 1 0 01-1 1H7a1 1 0 01-1-1v-3a1 1 0 00-1-1H4a2 2 0 110-4h1a1 1 0 001-1V7a1 1 0 011-1h3a1 1 0 001-1V4z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-bold text-white mb-2">Plugins a medida</h3>
+                    <p class="text-sm text-gray-400 leading-relaxed">
+                        Funcionalidades específicas que no encuentras en el repositorio.
+                        Integraciones con APIs externas y automatización de procesos.
+                    </p>
                 </div>
-                <h3 class="text-lg font-semibold text-dark mb-2">Desarrollo WordPress</h3>
-                <p class="text-sm text-gray-500">Sitios a medida, temas personalizados y optimización avanzada en WordPress.</p>
             </div>
 
             <!-- Servicio 3 -->
-            <div class="bg-white rounded-xl p-6 shadow-sm hover:shadow-xl transition-shadow border border-gray-100 group">
-                <div class="w-14 h-14 bg-brand-500/10 rounded-full flex items-center justify-center mb-4 group-hover:bg-brand-500 transition-colors">
-                    <svg class="w-7 h-7 text-brand-500 group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 4a2 2 0 114 0v1a1 1 0 001 1h3a1 1 0 011 1v3a1 1 0 01-1 1h-1a2 2 0 100 4h1a1 1 0 011 1v3a1 1 0 01-1 1h-3a1 1 0 01-1-1v-1a2 2 0 10-4 0v1a1 1 0 01-1 1H7a1 1 0 01-1-1v-3a1 1 0 00-1-1H4a2 2 0 110-4h1a1 1 0 001-1V7a1 1 0 011-1h3a1 1 0 001-1V4z"/>
-                    </svg>
+            <div class="relative rounded-xl border border-brand-500/30 p-[15px] bg-black">
+                <div class="h-full border border-brand-500/30 p-6 transition-all hover:border-brand-500/60">
+                    <div class="mb-4 flex h-12 w-12 items-center justify-center bg-brand-500/10">
+                        <svg class="h-6 w-6 text-brand-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-bold text-white mb-2">Optimización de rendimiento</h3>
+                    <p class="text-sm text-gray-400 leading-relaxed">
+                        Auditoría y corrección de sitios lentos. Reducción de tiempo de carga,
+                        optimización de imágenes y caché configurado correctamente.
+                    </p>
                 </div>
-                <h3 class="text-lg font-semibold text-dark mb-2">Plugins & Herramientas</h3>
-                <p class="text-sm text-gray-500">Desarrollo de plugins y herramientas personalizadas para WordPress.</p>
             </div>
 
             <!-- Servicio 4 -->
-            <div class="bg-white rounded-xl p-6 shadow-sm hover:shadow-xl transition-shadow border border-gray-100 group">
-                <div class="w-14 h-14 bg-brand-500/10 rounded-full flex items-center justify-center mb-4 group-hover:bg-brand-500 transition-colors">
-                    <svg class="w-7 h-7 text-brand-500 group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/>
-                    </svg>
+            <div class="relative rounded-xl border border-brand-500/30 p-[15px] bg-black">
+                <div class="h-full border border-brand-500/30 p-6 transition-all hover:border-brand-500/60">
+                    <div class="mb-4 flex h-12 w-12 items-center justify-center bg-brand-500/10">
+                        <svg class="h-6 w-6 text-brand-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-bold text-white mb-2">Mantenimiento y seguridad</h3>
+                    <p class="text-sm text-gray-400 leading-relaxed">
+                        Actualizaciones controladas, backups automáticos y monitoreo de seguridad.
+                        Tu sitio funcionando sin que tengas que preocuparte.
+                    </p>
                 </div>
-                <h3 class="text-lg font-semibold text-dark mb-2">Aplicaciones Web</h3>
-                <p class="text-sm text-gray-500">Desarrollo de aplicaciones web con Python y otras tecnologías modernas.</p>
             </div>
         </div>
     </div>
 </section>
 
-<!-- Proyectos Section -->
-<section id="proyectos" class="py-20 bg-dark">
+<!-- Proyectos (Layout Bento asimétrico) -->
+<section id="proyectos" class="py-24 bg-black">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex items-end justify-between mb-12">
+        <div class="flex flex-col md:flex-row md:items-end md:justify-between mb-12 gap-4">
             <div>
-                <p class="text-brand-500 font-semibold mb-2">PROYECTOS DESTACADOS</p>
-                <h2 class="text-3xl md:text-4xl font-bold text-white">Algunos proyectos recientes</h2>
+                <p class="text-brand-500 font-semibold mb-2 uppercase tracking-wider text-xs">Portafolio</p>
+                <h2 class="text-3xl md:text-4xl font-bold text-white">Trabajos entregados</h2>
             </div>
-            <a href="#" class="hidden md:flex items-center gap-2 text-brand-500 hover:text-brand-400 transition-colors">
-                Ver todos los proyectos
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
-                </svg>
+            <a href="#" class="text-sm font-medium text-gray-400 underline decoration-brand-500/50 underline-offset-4 transition-colors hover:text-white">
+                Ver portafolio completo
             </a>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <!-- Proyecto 1 -->
-            <div class="group relative bg-dark-700 rounded-xl overflow-hidden border border-white/5 hover:border-brand-500/50 transition-all">
-                <div class="h-48 bg-gradient-to-br from-purple-600/30 to-brand-500/30 flex items-center justify-center">
-                    <svg class="w-16 h-16 text-brand-500/50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
-                    </svg>
+        <div class="grid grid-cols-1 gap-6 lg:grid-cols-3">
+            <article class="group relative lg:col-span-2 lg:row-span-2 overflow-hidden rounded-xl border border-white/10 bg-gray-900">
+                <div class="aspect-[16/10] overflow-hidden lg:aspect-auto lg:h-full">
+                    <img src="{% static 'img/projects/giovanazzi.webp' %}" alt="Proyecto Giovanazzi" class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105">
                 </div>
-                <div class="p-6">
-                    <h3 class="text-lg font-semibold text-white mb-2">Dashboard Analytics</h3>
-                    <p class="text-sm text-gray-400 mb-4">Plataforma analítica desarrollada con Python (Django) y React.</p>
-                    <span class="inline-block px-3 py-1 bg-brand-500/10 text-brand-500 text-xs rounded-full">Aplicación Web</span>
+                <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/95 to-transparent p-6">
+                    <span class="mb-2 inline-block rounded bg-brand-600 px-2 py-1 text-[10px] font-bold uppercase tracking-wider text-white">Tema personalizado</span>
+                    <h3 class="text-xl font-bold text-white">Giovanazzi</h3>
+                    <p class="mt-1 text-sm text-gray-300">Plataforma de comercio electrónico optimizada.</p>
                 </div>
-            </div>
+            </article>
 
-            <!-- Proyecto 2 -->
-            <div class="group relative bg-dark-700 rounded-xl overflow-hidden border border-white/5 hover:border-brand-500/50 transition-all">
-                <div class="h-48 bg-gradient-to-br from-blue-600/30 to-purple-600/30 flex items-center justify-center">
-                    <svg class="w-16 h-16 text-purple-500/50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
-                    </svg>
+            <article class="group relative overflow-hidden rounded-xl border border-white/10 bg-gray-900">
+                <div class="aspect-[4/3] overflow-hidden">
+                    <img src="{% static 'img/projects/verycook.webp' %}" alt="Proyecto Verycook" class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105">
                 </div>
-                <div class="p-6">
-                    <h3 class="text-lg font-semibold text-white mb-2">EducaPro</h3>
-                    <p class="text-sm text-gray-400 mb-4">Sitio web educativo con WordPress y sistema de membresías.</p>
-                    <span class="inline-block px-3 py-1 bg-purple-500/10 text-purple-500 text-xs rounded-full">WordPress</span>
+                <div class="p-5">
+                    <h3 class="text-lg font-bold text-white">Verycook</h3>
+                    <p class="mt-1 text-sm text-gray-400">Sitio corporativo con gestión de contenidos personalizada.</p>
                 </div>
-            </div>
+            </article>
 
-            <!-- Proyecto 3 -->
-            <div class="group relative bg-dark-700 rounded-xl overflow-hidden border border-white/5 hover:border-brand-500/50 transition-all">
-                <div class="h-48 bg-gradient-to-br from-orange-600/30 to-red-600/30 flex items-center justify-center">
-                    <svg class="w-16 h-16 text-orange-500/50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
-                    </svg>
+            <article class="group relative overflow-hidden rounded-xl border border-white/10 bg-gray-900">
+                <div class="aspect-[4/3] overflow-hidden">
+                    <img src="{% static 'img/projects/cosvic.webp' %}" alt="Proyecto Cosvic" class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105">
                 </div>
-                <div class="p-6">
-                    <h3 class="text-lg font-semibold text-white mb-2">Restaurantes WP</h3>
-                    <p class="text-sm text-gray-400 mb-4">Sitio web para restaurantes con reservas y pedidos en línea.</p>
-                    <span class="inline-block px-3 py-1 bg-orange-500/10 text-orange-500 text-xs rounded-full">WordPress</span>
+                <div class="p-5">
+                    <h3 class="text-lg font-bold text-white">Cosvic</h3>
+                    <p class="mt-1 text-sm text-gray-400">Rediseño de identidad digital y arquitectura de información.</p>
                 </div>
-            </div>
-        </div>
-
-        <div class="mt-8 text-center md:hidden">
-            <a href="#" class="inline-flex items-center gap-2 text-brand-500 hover:text-brand-400 transition-colors">
-                Ver todos los proyectos
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
-                </svg>
-            </a>
+            </article>
         </div>
     </div>
 </section>
 
-<!-- Tecnologías Section -->
-<section class="py-20 bg-surface">
+<!-- Tecnologías (Marquee solo con iconos) -->
+<section id="tecnologias" class="py-16 bg-black border-y border-white/10">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-8">
+        <p class="text-brand-500 font-semibold mb-2 uppercase tracking-wider text-xs">Stack técnico</p>
+        <h2 class="text-2xl md:text-3xl font-bold text-white">Herramientas que uso</h2>
+    </div>
+
+    <div class="marquee" data-marquee>
+        <div class="marquee-track" data-marquee-track>
+            <ul class="marquee-group flex gap-6" role="list" data-marquee-group>
+                <!-- WordPress -->
+                <li class="shrink-0 flex items-center justify-center w-16 h-16 rounded-lg border border-white/10 bg-black transition-colors hover:border-brand-500/30">
+                    <svg class="w-8 h-8 text-gray-400" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 13c0-.46.04-.92.08-1.38.04-.46.08-.92.08-1.38 0-2.67-.92-4.97-2.44-6.83C.89 4.83 1.2 6.32 1.2 7.85c0 1.84-.38 3.52-1.07 5.06.69 1.54 1.07 3.22 1.07 5.06 0 1.53-.31 3.02-1.23 4.44 1.52-1.86 2.44-4.16 2.44-6.83 0-.46-.04-.92-.08-1.38-.04-.46-.08-.92-.08-1.38l1.38-3.79c.86 1.5 1.32 3.2 1.32 4.95 0 5.46-4.45 9.91-9.91 9.91h16.94c5.46 0 9.91-4.45 9.91-9.91S17.5 2 12.04 2zm-3.47 14.77l-2.3-6.31c-.15-.42-.23-.77-.23-1.15 0-.69.46-1.31 1.15-1.31.38 0 .77.15 1.08.46.31.31.54.77.69 1.23l1.08 3.45 1.08-3.45c.15-.46.38-.92.69-1.23.31-.31.69-.46 1.08-.46.69 0 1.15.62 1.15 1.31 0 .38-.08.73-.23 1.15l-2.3 6.31h-2.96z"/>
+                    </svg>
+                </li>
+                <!-- PHP -->
+                <li class="shrink-0 flex items-center justify-center w-16 h-16 rounded-lg border border-white/10 bg-black transition-colors hover:border-brand-500/30">
+                    <svg class="w-8 h-8 text-blue-400" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M7.01 10.207h-.944l-.515 2.648h.838c.471 0 .91-.088 1.31-.265.398-.176.75-.412 1.05-.708.303-.296.54-.648.714-1.056.173-.408.26-.852.26-1.332 0-.408-.068-.768-.204-1.08-.136-.312-.328-.572-.576-.78-.248-.208-.544-.364-.888-.468-.344-.104-.72-.156-1.128-.156H3v15h1.997v-5.124h2.016c.408 0 .784-.052 1.128-.156.344-.104.64-.26.888-.468.248-.208.44-.468.576-.78.136-.312.204-.672.204-1.08 0-.48-.087-.924-.26-1.332-.174-.408-.411-.76-.714-1.056-.3-.296-.652-.532-1.05-.708-.4-.177-.839-.265-1.31-.265zM5.003 8.31h1.776c.24 0 .456.024.648.072.192.048.356.12.492.216.136.096.24.216.312.36.072.144.108.312.108.504 0 .192-.036.36-.108.504-.072.144-.176.264-.312.36-.136.096-.3.168-.492.216-.192.048-.408.072-.648.072H5.003V8.31zm0 5.976h1.92c.24 0 .456.024.648.072.192.048.356.12.492.216.136.096.24.216.312.36.072.144.108.312.108.504 0 .192-.036.36-.108.504-.072.144-.176.264-.312.36-.136.096-.3.168-.492.216-.192.048-.408.072-.648.072h-1.92v-2.304zM15.01 8.31h-4.992v1.992h1.488v7.692h1.992v-7.692h1.512V8.31z"/>
+                    </svg>
+                </li>
+                <!-- JavaScript -->
+                <li class="shrink-0 flex items-center justify-center w-16 h-16 rounded-lg border border-white/10 bg-black transition-colors hover:border-brand-500/30">
+                    <svg class="w-8 h-8 text-yellow-400" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M0 0h24v24H0V0zm22.034 18.276c-.175-1.095-.888-2.015-3.003-2.873-.736-.345-1.554-.585-1.797-1.14-.091-.33-.105-.51-.046-.705.15-.646.915-.84 1.515-.66.39.12.75.42.976.9 1.034-.676 1.034-.676 1.755-1.125-.27-.42-.404-.601-.586-.78-.63-.705-1.469-1.065-2.834-1.034l-.705.089c-.676.165-1.32.525-1.71 1.005-1.14 1.291-.811 3.541.569 4.471 1.365 1.02 3.361 1.244 3.616 2.205.24 1.17-.87 1.545-1.966 1.41-.811-.18-1.26-.586-1.755-1.336l-1.83 1.051c.21.48.45.689.81 1.109 1.74 1.756 6.09 1.666 6.871-1.004.029-.09.24-.705.074-1.65l.001.067zM8.954 9.14H7.124v6.075c0 1.291.067 2.341-.135 3.376-.307 1.574-1.306 2.295-2.626 2.37-1.404.075-2.355-.63-2.835-1.89l2.25-.93c.12.66.585 1.215 1.38 1.14.765-.06 1.125-.525 1.17-1.47.015-.18.015-8.671-.015-8.671h2.641V9.14z"/>
+                    </svg>
+                </li>
+                <!-- HTML5 -->
+                <li class="shrink-0 flex items-center justify-center w-16 h-16 rounded-lg border border-white/10 bg-black transition-colors hover:border-brand-500/30">
+                    <svg class="w-8 h-8 text-orange-500" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M1.5 0h21l-1.91 21.563L11.977 24l-8.564-2.438L1.5 0zm17.09 4.413L5.41 4.41l.213 2.622 10.125.002-.255 2.716h-6.64l.24 2.573h6.182l-.366 3.523-2.91.804-2.956-.81-.188-2.11h-2.61l.29 3.855L12 19.288l5.373-1.53L18.59 4.414h-2z"/>
+                    </svg>
+                </li>
+                <!-- CSS3 -->
+                <li class="shrink-0 flex items-center justify-center w-16 h-16 rounded-lg border border-white/10 bg-black transition-colors hover:border-brand-500/30">
+                    <svg class="w-8 h-8 text-blue-500" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M1.5 0h21l-1.91 21.563L11.977 24l-8.565-2.438L1.5 0zm7.031 9.75l-.232-2.718 10.059.003.23-2.622L5.412 4.41l.698 8.01h9.126l-.326 3.426-2.91.804-2.955-.81-.188-2.11H6.248l.33 4.171L12 19.351l5.379-1.443.744-8.157H8.531z"/>
+                    </svg>
+                </li>
+                <!-- Tailwind CSS -->
+                <li class="shrink-0 flex items-center justify-center w-16 h-16 rounded-lg border border-white/10 bg-black transition-colors hover:border-brand-500/30">
+                    <svg class="w-8 h-8 text-cyan-400" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12.001 4.8c-3.2 0-5.2 1.6-6 4.8 1.2-1.6 2.6-2.2 4.2-1.8.913.228 1.565.89 2.288 1.624C13.666 10.618 15.027 12 18.001 12c3.2 0 5.2-1.6 6-4.8-1.2 1.6-2.6 2.2-4.2 1.8-.913-.228-1.565-.89-2.288-1.624C16.337 6.182 14.976 4.8 12.001 4.8zm-6 7.2c-3.2 0-5.2 1.6-6 4.8 1.2-1.6 2.6-2.2 4.2-1.8.913.228 1.565.89 2.288 1.624 1.177 1.194 2.538 2.576 5.512 2.576 3.2 0 5.2-1.6 6-4.8-1.2 1.6-2.6 2.2-4.2 1.8-.913-.228-1.565-.89-2.288-1.624C12.337 13.382 10.976 12 8.001 12h-2z"/>
+                    </svg>
+                </li>
+                <!-- Git -->
+                <li class="shrink-0 flex items-center justify-center w-16 h-16 rounded-lg border border-white/10 bg-black transition-colors hover:border-brand-500/30">
+                    <svg class="w-8 h-8 text-orange-600" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M23.546 10.93L13.07.46a1.55 1.55 0 00-2.18 0L8.708 2.647l2.76 2.76a1.838 1.838 0 012.327 2.341l2.658 2.66a1.838 1.838 0 11-.633.633l-2.66-2.658a1.838 1.838 0 01-2.34-2.327l-2.76-2.76L.46 10.93a1.55 1.55 0 000 2.18l10.47 10.47a1.55 1.55 0 002.18 0l10.436-10.47a1.55 1.55 0 000-2.18zM5.88 15.464a1.84 1.84 0 11-3.68 0 1.84 1.84 0 013.68 0zm9.14-6.45a1.84 1.84 0 11-3.68 0 1.84 1.84 0 013.68 0zm6.45 6.45a1.84 1.84 0 11-3.68 0 1.84 1.84 0 013.68 0z"/>
+                    </svg>
+                </li>
+                <!-- Duplicados para el loop -->
+                <li class="shrink-0 flex items-center justify-center w-16 h-16 rounded-lg border border-white/10 bg-black transition-colors hover:border-brand-500/30">
+                    <svg class="w-8 h-8 text-gray-400" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 13c0-.46.04-.92.08-1.38.04-.46.08-.92.08-1.38 0-2.67-.92-4.97-2.44-6.83C.89 4.83 1.2 6.32 1.2 7.85c0 1.84-.38 3.52-1.07 5.06.69 1.54 1.07 3.22 1.07 5.06 0 1.53-.31 3.02-1.23 4.44 1.52-1.86 2.44-4.16 2.44-6.83 0-.46-.04-.92-.08-1.38-.04-.46-.08-.92-.08-1.38l1.38-3.79c.86 1.5 1.32 3.2 1.32 4.95 0 5.46-4.45 9.91-9.91 9.91h16.94c5.46 0 9.91-4.45 9.91-9.91S17.5 2 12.04 2zm-3.47 14.77l-2.3-6.31c-.15-.42-.23-.77-.23-1.15 0-.69.46-1.31 1.15-1.31.38 0 .77.15 1.08.46.31.31.54.77.69 1.23l1.08 3.45 1.08-3.45c.15-.46.38-.92.69-1.23.31-.31.69-.46 1.08-.46.69 0 1.15.62 1.15 1.31 0 .38-.08.73-.23 1.15l-2.3 6.31h-2.96z"/>
+                    </svg>
+                </li>
+                <li class="shrink-0 flex items-center justify-center w-16 h-16 rounded-lg border border-white/10 bg-black transition-colors hover:border-brand-500/30">
+                    <svg class="w-8 h-8 text-blue-400" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M7.01 10.207h-.944l-.515 2.648h.838c.471 0 .91-.088 1.31-.265.398-.176.75-.412 1.05-.708.303-.296.54-.648.714-1.056.173-.408.26-.852.26-1.332 0-.408-.068-.768-.204-1.08-.136-.312-.328-.572-.576-.78-.248-.208-.544-.364-.888-.468-.344-.104-.72-.156-1.128-.156H3v15h1.997v-5.124h2.016c.408 0 .784-.052 1.128-.156.344-.104.64-.26.888-.468.248-.208.44-.468.576-.78.136-.312.204-.672.204-1.08 0-.48-.087-.924-.26-1.332-.174-.408-.411-.76-.714-1.056-.3-.296-.652-.532-1.05-.708-.4-.177-.839-.265-1.31-.265zM5.003 8.31h1.776c.24 0 .456.024.648.072.192.048.356.12.492.216.136.096.24.216.312.36.072.144.108.312.108.504 0 .192-.036.36-.108.504-.072.144-.176.264-.312.36-.136.096-.3.168-.492.216-.192.048-.408.072-.648.072H5.003V8.31zm0 5.976h1.92c.24 0 .456.024.648.072.192.048.356.12.492.216.136.096.24.216.312.36.072.144.108.312.108.504 0 .192-.036.36-.108.504-.072.144-.176.264-.312.36-.136.096-.3.168-.492.216-.192.048-.408.072-.648.072h-1.92v-2.304zM15.01 8.31h-4.992v1.992h1.488v7.692h1.992v-7.692h1.512V8.31z"/>
+                    </svg>
+                </li>
+                <li class="shrink-0 flex items-center justify-center w-16 h-16 rounded-lg border border-white/10 bg-black transition-colors hover:border-brand-500/30">
+                    <svg class="w-8 h-8 text-yellow-400" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M0 0h24v24H0V0zm22.034 18.276c-.175-1.095-.888-2.015-3.003-2.873-.736-.345-1.554-.585-1.797-1.14-.091-.33-.105-.51-.046-.705.15-.646.915-.84 1.515-.66.39.12.75.42.976.9 1.034-.676 1.034-.676 1.755-1.125-.27-.42-.404-.601-.586-.78-.63-.705-1.469-1.065-2.834-1.034l-.705.089c-.676.165-1.32.525-1.71 1.005-1.14 1.291-.811 3.541.569 4.471 1.365 1.02 3.361 1.244 3.616 2.205.24 1.17-.87 1.545-1.966 1.41-.811-.18-1.26-.586-1.755-1.336l-1.83 1.051c.21.48.45.689.81 1.109 1.74 1.756 6.09 1.666 6.871-1.004.029-.09.24-.705.074-1.65l.001.067zM8.954 9.14H7.124v6.075c0 1.291.067 2.341-.135 3.376-.307 1.574-1.306 2.295-2.626 2.37-1.404.075-2.355-.63-2.835-1.89l2.25-.93c.12.66.585 1.215 1.38 1.14.765-.06 1.125-.525 1.17-1.47.015-.18.015-8.671-.015-8.671h2.641V9.14z"/>
+                    </svg>
+                </li>
+                <li class="shrink-0 flex items-center justify-center w-16 h-16 rounded-lg border border-white/10 bg-black transition-colors hover:border-brand-500/30">
+                    <svg class="w-8 h-8 text-orange-500" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M1.5 0h21l-1.91 21.563L11.977 24l-8.564-2.438L1.5 0zm17.09 4.413L5.41 4.41l.213 2.622 10.125.002-.255 2.716h-6.64l.24 2.573h6.182l-.366 3.523-2.91.804-2.956-.81-.188-2.11h-2.61l.29 3.855L12 19.288l5.373-1.53L18.59 4.414h-2z"/>
+                    </svg>
+                </li>
+                <li class="shrink-0 flex items-center justify-center w-16 h-16 rounded-lg border border-white/10 bg-black transition-colors hover:border-brand-500/30">
+                    <svg class="w-8 h-8 text-blue-500" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M1.5 0h21l-1.91 21.563L11.977 24l-8.565-2.438L1.5 0zm7.031 9.75l-.232-2.718 10.059.003.23-2.622L5.412 4.41l.698 8.01h9.126l-.326 3.426-2.91.804-2.955-.81-.188-2.11H6.248l.33 4.171L12 19.351l5.379-1.443.744-8.157H8.531z"/>
+                    </svg>
+                </li>
+                <li class="shrink-0 flex items-center justify-center w-16 h-16 rounded-lg border border-white/10 bg-black transition-colors hover:border-brand-500/30">
+                    <svg class="w-8 h-8 text-cyan-400" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12.001 4.8c-3.2 0-5.2 1.6-6 4.8 1.2-1.6 2.6-2.2 4.2-1.8.913.228 1.565.89 2.288 1.624C13.666 10.618 15.027 12 18.001 12c3.2 0 5.2-1.6 6-4.8-1.2 1.6-2.6 2.2-4.2 1.8-.913-.228-1.565-.89-2.288-1.624C16.337 6.182 14.976 4.8 12.001 4.8zm-6 7.2c-3.2 0-5.2 1.6-6 4.8 1.2-1.6 2.6-2.2 4.2-1.8.913.228 1.565.89 2.288 1.624 1.177 1.194 2.538 2.576 5.512 2.576 3.2 0 5.2-1.6 6-4.8-1.2 1.6-2.6 2.2-4.2 1.8-.913-.228-1.565-.89-2.288-1.624C12.337 13.382 10.976 12 8.001 12h-2z"/>
+                    </svg>
+                </li>
+                <li class="shrink-0 flex items-center justify-center w-16 h-16 rounded-lg border border-white/10 bg-black transition-colors hover:border-brand-500/30">
+                    <svg class="w-8 h-8 text-orange-600" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M23.546 10.93L13.07.46a1.55 1.55 0 00-2.18 0L8.708 2.647l2.76 2.76a1.838 1.838 0 012.327 2.341l2.658 2.66a1.838 1.838 0 11-.633.633l-2.66-2.658a1.838 1.838 0 01-2.34-2.327l-2.76-2.76L.46 10.93a1.55 1.55 0 000 2.18l10.47 10.47a1.55 1.55 0 002.18 0l10.436-10.47a1.55 1.55 0 000-2.18zM5.88 15.464a1.84 1.84 0 11-3.68 0 1.84 1.84 0 013.68 0zm9.14-6.45a1.84 1.84 0 11-3.68 0 1.84 1.84 0 013.68 0zm6.45 6.45a1.84 1.84 0 11-3.68 0 1.84 1.84 0 013.68 0z"/>
+                    </svg>
+                </li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+<!-- Proceso de trabajo -->
+<section id="proceso" class="py-24 bg-gray-50">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center mb-12">
-            <p class="text-brand-500 font-semibold mb-2">TECNOLOGÍAS</p>
-            <h2 class="text-3xl md:text-4xl font-bold text-dark mb-4">Herramientas con las que trabajo</h2>
+        <div class="mb-16 max-w-2xl">
+            <p class="text-brand-600 font-semibold mb-2 uppercase tracking-wider text-xs">Cómo trabajo</p>
+            <h2 class="text-3xl md:text-4xl font-bold text-black">De la idea a tu sitio en 4 pasos</h2>
+            <p class="mt-4 text-gray-600 text-sm leading-relaxed">
+                Sin sorpresas ni tecnicismos. Un proceso claro para que sepas exactamente qué esperar en cada etapa.
+            </p>
         </div>
 
-        <div class="grid grid-cols-4 md:grid-cols-8 gap-4">
-            <div class="bg-white rounded-lg p-4 shadow-sm flex flex-col items-center justify-center hover:shadow-md transition-shadow">
-                <svg class="w-8 h-8 text-gray-700 mb-2" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.486 2 2 6.486 2 12s4.486 10 10 10 10-4.486 10-10S17.514 2 12 2zm-1.5 17.5c-1.5 0-2.5-.5-2.5-2 0-1 .5-2 1.5-3 .5-.5 1-1 1-2s-.5-1.5-1.5-1.5c-1 0-2 1-2 2.5 0 .5-.5 1-1 1s-1-.5-1-1c0-2.5 2-4.5 4.5-4.5 2 0 3.5 1.5 3.5 3.5 0 1.5-1 2.5-2 3.5-.5.5-1 1-1 2s.5 1.5 1.5 1.5c1 0 2-1 2-2.5 0-.5.5-1 1-1s1 .5 1 1c0 2.5-2 4.5-4.5 4.5z"/></svg>
-                <span class="text-xs text-gray-600">WordPress</span>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <!-- Paso 1 -->
+            <div class="relative rounded-xl border border-black/10 p-[15px] bg-white">
+                <div class="h-full border border-black/10 p-6">
+                    <div class="mb-4 flex h-12 w-12 items-center justify-center bg-brand-500/10">
+                        <span class="text-xl font-bold text-brand-600">01</span>
+                    </div>
+                    <h3 class="text-lg font-bold text-black mb-2">Descubrimiento</h3>
+                    <p class="text-sm text-gray-600 leading-relaxed">
+                        Reunión para entender tu negocio, objetivos y público. Definimos estructura, funcionalidades y cronograma del proyecto.
+                    </p>
+                </div>
             </div>
-            <div class="bg-white rounded-lg p-4 shadow-sm flex flex-col items-center justify-center hover:shadow-md transition-shadow">
-                <span class="text-purple-600 font-bold text-lg mb-2">PHP</span>
-                <span class="text-xs text-gray-600">PHP</span>
+
+            <!-- Paso 2 -->
+            <div class="relative rounded-xl border border-black/10 p-[15px] bg-white">
+                <div class="h-full border border-black/10 p-6">
+                    <div class="mb-4 flex h-12 w-12 items-center justify-center bg-brand-500/10">
+                        <span class="text-xl font-bold text-brand-600">02</span>
+                    </div>
+                    <h3 class="text-lg font-bold text-black mb-2">Diseño</h3>
+                    <p class="text-sm text-gray-600 leading-relaxed">
+                        Creo el mockup visual en Elementor. Apruebas el diseño antes de empezar el desarrollo. Sin sorpresas.
+                    </p>
+                </div>
             </div>
-            <div class="bg-white rounded-lg p-4 shadow-sm flex flex-col items-center justify-center hover:shadow-md transition-shadow">
-                <svg class="w-8 h-8 text-blue-500 mb-2" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2c-2.5 0-4 1.5-4 3.5V8h4v1H4.5C2.5 9 1 10.5 1 12.5S2.5 16 4.5 16h1.5v-2c0-1.5 1-2.5 2.5-2.5h5c1.5 0 2.5-1 2.5-2.5V5.5C16 3.5 14.5 2 12 2zm-3.5 3c0-.5.5-1 1-1s1 .5 1 1-.5 1-1 1-1-.5-1-1zm7 13.5c0 2-1.5 3.5-3.5 3.5s-3.5-1.5-3.5-3.5V17h-4c-1.5 0-2.5-1-2.5-2.5s1-2.5 2.5-2.5h1.5v2c0 1.5 1 2.5 2.5 2.5h5c1.5 0 2.5-1 2.5-2.5V13h-4v1h4v1.5zm-1.5 2c0 .5-.5 1-1 1s-1-.5-1-1 .5-1 1-1 1 .5 1 1z"/></svg>
-                <span class="text-xs text-gray-600">Python</span>
+
+            <!-- Paso 3 -->
+            <div class="relative rounded-xl border border-black/10 p-[15px] bg-white">
+                <div class="h-full border border-black/10 p-6">
+                    <div class="mb-4 flex h-12 w-12 items-center justify-center bg-brand-500/10">
+                        <span class="text-xl font-bold text-brand-600">03</span>
+                    </div>
+                    <h3 class="text-lg font-bold text-black mb-2">Desarrollo</h3>
+                    <p class="text-sm text-gray-600 leading-relaxed">
+                        Construyo el sitio con Elementor Pro. Optimizo velocidad, SEO técnico y configuración de plugins necesarios.
+                    </p>
+                </div>
             </div>
-            <div class="bg-white rounded-lg p-4 shadow-sm flex flex-col items-center justify-center hover:shadow-md transition-shadow">
-                <span class="text-yellow-500 font-bold text-lg mb-2">JS</span>
-                <span class="text-xs text-gray-600">JavaScript</span>
-            </div>
-            <div class="bg-white rounded-lg p-4 shadow-sm flex flex-col items-center justify-center hover:shadow-md transition-shadow">
-                <span class="text-orange-500 font-bold text-sm mb-2">HTML5</span>
-                <span class="text-xs text-gray-600">HTML5</span>
-            </div>
-            <div class="bg-white rounded-lg p-4 shadow-sm flex flex-col items-center justify-center hover:shadow-md transition-shadow">
-                <span class="text-blue-500 font-bold text-sm mb-2">CSS3</span>
-                <span class="text-xs text-gray-600">CSS3</span>
-            </div>
-            <div class="bg-white rounded-lg p-4 shadow-sm flex flex-col items-center justify-center hover:shadow-md transition-shadow">
-                <span class="text-cyan-500 font-bold text-sm mb-2">TW</span>
-                <span class="text-xs text-gray-600">Tailwind</span>
-            </div>
-            <div class="bg-white rounded-lg p-4 shadow-sm flex flex-col items-center justify-center hover:shadow-md transition-shadow">
-                <span class="text-orange-600 font-bold text-sm mb-2">Git</span>
-                <span class="text-xs text-gray-600">Git</span>
+
+            <!-- Paso 4 -->
+            <div class="relative rounded-xl border border-black/10 p-[15px] bg-white">
+                <div class="h-full border border-black/10 p-6">
+                    <div class="mb-4 flex h-12 w-12 items-center justify-center bg-brand-500/10">
+                        <span class="text-xl font-bold text-brand-600">04</span>
+                    </div>
+                    <h3 class="text-lg font-bold text-black mb-2">Entrega</h3>
+                    <p class="text-sm text-gray-600 leading-relaxed">
+                        Revisión final, ajustes menores y capacitación para que puedas editar tu sitio. Lanzamiento y soporte post-lanzamiento.
+                    </p>
+                </div>
             </div>
         </div>
     </div>
 </section>
 
-<!-- CTA Section -->
-<section id="contacto" class="py-20 bg-dark">
-    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="bg-gradient-to-r from-brand-500/20 to-purple-600/20 rounded-2xl p-8 md:p-12 border border-white/10 text-center">
-            <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">¿Tienes un proyecto en mente?</h2>
-            <p class="text-gray-400 mb-8 max-w-xl mx-auto">Hablemos y hagamos realidad tu idea.</p>
-            <a href="mailto:hola@wcrafter.com" class="inline-flex items-center gap-2 bg-brand-500 hover:bg-brand-600 text-white px-8 py-3 rounded-full font-medium transition-colors">
-                Iniciar proyecto
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
-                </svg>
-            </a>
-        </div>
+<!-- CTA (sin cambios) -->
+<section id="contacto" class="py-24 bg-black">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <h2 class="text-3xl md:text-5xl font-bold tracking-tight text-white mb-6">
+            ¿Necesitas un desarrollo a medida?
+        </h2>
+        <p class="text-lg text-gray-400 mb-10 max-w-xl mx-auto">
+            Envíame un correo. Respondo en menos de 24 horas con una propuesta técnica
+            y un presupuesto cerrado.
+        </p>
+        <a href="mailto:hola@wcrafter.com" class="inline-flex items-center justify-center rounded-lg bg-brand-500 px-8 py-4 text-base font-semibold text-white transition-colors hover:bg-brand-600">
+            Iniciar conversación
+        </a>
     </div>
 </section>
+
 {% endblock %}

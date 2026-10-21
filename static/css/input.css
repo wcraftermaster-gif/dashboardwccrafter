@@ -212,3 +212,52 @@
 }
 
 
+/* Cuadrícula magenta - visible en todo el hero */
+.grid-overlay {
+    position: absolute;
+    inset: 0;
+    background-image:
+        linear-gradient(to right, rgba(236, 72, 153, 0.15) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(236, 72, 153, 0.15) 1px, transparent 1px);
+    background-size: 60px 60px;
+}
+
+/* Contenedores de puntos */
+.dots-static,
+.dots-interactive {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+/* Punto estilo circuito */
+.dot {
+    position: absolute;
+    width: 3px;
+    height: 3px;
+    background-color: #ec4899;
+    border-radius: 50%;
+    box-shadow:
+        0 0 6px rgba(236, 72, 153, 0.8),
+        0 0 12px rgba(236, 72, 153, 0.4);
+    will-change: transform;
+    transition: opacity 0.3s ease;
+}
+
+.dot.small {
+    width: 2px;
+    height: 2px;
+    background-color: rgba(236, 72, 153, 0.6);
+    box-shadow: 0 0 4px rgba(236, 72, 153, 0.5);
+}
+
+.dot.large {
+    width: 5px;
+    height: 5px;
+    background-color: #f472b6;
+    box-shadow:
+        0 0 8px rgba(236, 72, 153, 1),
+        0 0 16px rgba(236, 72, 153, 0.6),
+        0 0 24px rgba(236, 72, 153, 0.3);
+}
